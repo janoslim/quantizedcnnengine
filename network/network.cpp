@@ -18,9 +18,10 @@ Network::~Network()
 
 void Network::forward()
 {
+	std::thread::id this_id = std::this_thread::get_id();
 	// check if input ready
 	this->check_input();
-	std::cout << "running network " << this->id << "." << std::endl;
+	std::cout << "tid: " << this_id << " running network " << this->id << "." << std::endl;
 
 	for(Network* net : *this->child_networks)
 	{
