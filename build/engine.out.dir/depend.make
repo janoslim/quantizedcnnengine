@@ -8,6 +8,13 @@ engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o: /home/janos/quanti
 engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o: /home/janos/quantizationEngine/io/./iopool.h
 engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o: /home/janos/quantizationEngine/io/iopool.cpp
 
+engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o: /home/janos/quantizationEngine/jsonparser/./jsonParser.h
+engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o: /home/janos/quantizationEngine/jsonparser/./jsonValue.h
+engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o: /home/janos/quantizationEngine/jsonparser/jsonParser.cpp
+
+engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o: /home/janos/quantizationEngine/jsonparser/./jsonValue.h
+engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o: /home/janos/quantizationEngine/jsonparser/jsonValue.cpp
+
 engine.out.dir/home/janos/quantizationEngine/main/main.cpp.o: /home/janos/quantizationEngine/io/./io.h
 engine.out.dir/home/janos/quantizationEngine/main/main.cpp.o: /home/janos/quantizationEngine/io/io.h
 engine.out.dir/home/janos/quantizationEngine/main/main.cpp.o: /home/janos/quantizationEngine/io/iopool.h

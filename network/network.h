@@ -23,6 +23,4 @@ public:
 	void wait_thread();
 	void add_network(Network* network);
 };
-
-
 #endif

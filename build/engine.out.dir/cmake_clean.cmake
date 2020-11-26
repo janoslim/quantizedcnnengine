@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/network/network.cpp.o"
   "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/io.cpp.o"
   "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o"
+  "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o"
+  "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o"
   "../engine.out.pdb"
   "../engine.out"
 )

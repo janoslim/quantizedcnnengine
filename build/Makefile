@@ -177,6 +177,60 @@ home/janos/quantizationEngine/io/iopool.cpp.s:
 	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.s
 .PHONY : home/janos/quantizationEngine/io/iopool.cpp.s
 
+home/janos/quantizationEngine/jsonparser/jsonParser.o: home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.o
+
+# target to build an object file
+home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o
+
+home/janos/quantizationEngine/jsonparser/jsonParser.i: home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.i
+
+# target to preprocess a source file
+home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i
+
+home/janos/quantizationEngine/jsonparser/jsonParser.s: home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.s
+
+# target to generate assembly for a file
+home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s
+
+home/janos/quantizationEngine/jsonparser/jsonValue.o: home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.o
+
+# target to build an object file
+home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o
+
+home/janos/quantizationEngine/jsonparser/jsonValue.i: home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.i
+
+# target to preprocess a source file
+home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i
+
+home/janos/quantizationEngine/jsonparser/jsonValue.s: home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s
+
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.s
+
+# target to generate assembly for a file
+home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s:
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s
+.PHONY : home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s
+
 home/janos/quantizationEngine/main/main.o: home/janos/quantizationEngine/main/main.cpp.o
 
 .PHONY : home/janos/quantizationEngine/main/main.o
@@ -246,6 +300,12 @@ help:
 	@echo "... home/janos/quantizationEngine/io/iopool.o"
 	@echo "... home/janos/quantizationEngine/io/iopool.i"
 	@echo "... home/janos/quantizationEngine/io/iopool.s"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonParser.o"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonParser.i"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonParser.s"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonValue.o"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonValue.i"
+	@echo "... home/janos/quantizationEngine/jsonparser/jsonValue.s"
 	@echo "... home/janos/quantizationEngine/main/main.o"
 	@echo "... home/janos/quantizationEngine/main/main.i"
 	@echo "... home/janos/quantizationEngine/main/main.s"

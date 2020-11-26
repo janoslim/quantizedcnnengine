@@ -11,12 +11,17 @@ set(MAIN_DIR ../main)
 set(LAYER_DIR ../layer)
 # 변수 IO_DIR 설정
 set(IO_DIR ../io)
+# 변수 JSONPARSER_DIR 설정
+set(JSONPARSER_DIR ../jsonparser)
 
 # 변수 SOURCE 설정
 set(SOURCE ${MAIN_DIR}/main.cpp 
             ${NETWORK_DIR}/network.cpp
             ${IO_DIR}/io.cpp
-            ${IO_DIR}/iopool.cpp)
+            ${IO_DIR}/iopool.cpp
+            ${JSONPARSER_DIR}/jsonParser.cpp
+            ${JSONPARSER_DIR}/jsonValue.cpp
+            )
 
 # 변수 OUTPUT 설정
 set(OUTPUT ${ROOT}/engine.out)

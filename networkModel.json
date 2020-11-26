@@ -1,0 +1,94 @@
+{
+    "network": {
+     "type": "network",
+     "id": 4,
+     "input": -1,
+     "shape": [
+      28,
+      28
+     ],
+     "subnet": [
+      {
+       "network": {
+        "type": "reshape",
+        "id": 0,
+        "input": -1,
+        "shape": [ 28, 28 ],
+        "subnet": []
+       }
+      },
+      {
+       "network": {
+        "type": "conv2d",
+        "id": 1,
+        "input": 0,
+        "shape": [
+         28,
+         28,
+         1
+        ],
+        "subnet": [],
+        "act_type": "relu",
+        "filters": 5,
+        "size": [
+         2,
+         2
+        ],
+        "stride": [
+         1,
+         1
+        ],
+        "padding": "valid"
+       }
+      },
+      {
+       "network": {
+        "type": "max_pooling2d",
+        "id": 2,
+        "input": 1,
+        "shape": [
+         27,
+         27,
+         5
+        ],
+        "subnet": [],
+        "pool_size": [
+         2,
+         2
+        ],
+        "stride": [
+         2,
+         2
+        ],
+        "padding": "valid"
+       }
+      },
+      {
+       "network": {
+        "type": "flatten",
+        "id": 3,
+        "input": 2,
+        "shape": [
+         13,
+         13,
+         5
+        ],
+        "subnet": []
+       }
+      },
+      {
+       "network": {
+        "type": "dense",
+        "id": 4,
+        "input": 3,
+        "shape": [
+         845
+        ],
+        "subnet": [],
+        "act_type": "linear",
+        "units": 10
+       }
+      }
+     ]
+    }
+   }

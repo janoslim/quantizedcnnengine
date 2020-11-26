@@ -153,12 +153,62 @@ CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o.provi
 CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o.provides.build: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o
 
 
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o: CMakeFiles/../engine.out.dir/flags.make
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o: /home/janos/quantizationEngine/jsonparser/jsonParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/janos/quantizationEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o -c /home/janos/quantizationEngine/jsonparser/jsonParser.cpp
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/janos/quantizationEngine/jsonparser/jsonParser.cpp > CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.i
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/janos/quantizationEngine/jsonparser/jsonParser.cpp -o CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.s
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.requires:
+
+.PHONY : CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.requires
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.provides: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.requires
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.provides.build
+.PHONY : CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.provides
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.provides.build: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o
+
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o: CMakeFiles/../engine.out.dir/flags.make
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o: /home/janos/quantizationEngine/jsonparser/jsonValue.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/janos/quantizationEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o -c /home/janos/quantizationEngine/jsonparser/jsonValue.cpp
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/janos/quantizationEngine/jsonparser/jsonValue.cpp > CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.i
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/janos/quantizationEngine/jsonparser/jsonValue.cpp -o CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.s
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.requires:
+
+.PHONY : CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.requires
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.provides: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.requires
+	$(MAKE) -f CMakeFiles/../engine.out.dir/build.make CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.provides.build
+.PHONY : CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.provides
+
+CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.provides.build: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o
+
+
 # Object files for target ../engine.out
 __/engine_out_OBJECTS = \
 "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/main/main.cpp.o" \
 "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/network/network.cpp.o" \
 "CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/io.cpp.o" \
-"CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o"
+"CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o" \
+"CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o" \
+"CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o"
 
 # External object files for target ../engine.out
 __/engine_out_EXTERNAL_OBJECTS =
@@ -167,9 +217,11 @@ __/engine_out_EXTERNAL_OBJECTS =
 ../engine.out: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/network/network.cpp.o
 ../engine.out: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/io.cpp.o
 ../engine.out: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o
+../engine.out: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o
+../engine.out: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o
 ../engine.out: CMakeFiles/../engine.out.dir/build.make
 ../engine.out: CMakeFiles/../engine.out.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/janos/quantizationEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../engine.out"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/janos/quantizationEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ../engine.out"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/../engine.out.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -181,6 +233,8 @@ CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/q
 CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/network/network.cpp.o.requires
 CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/io.cpp.o.requires
 CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o.requires
+CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o.requires
+CMakeFiles/../engine.out.dir/requires: CMakeFiles/../engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o.requires
 
 .PHONY : CMakeFiles/../engine.out.dir/requires
 

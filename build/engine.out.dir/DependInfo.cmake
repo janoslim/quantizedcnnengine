@@ -6,6 +6,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/janos/quantizationEngine/io/io.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/io/io.cpp.o"
   "/home/janos/quantizationEngine/io/iopool.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/io/iopool.cpp.o"
+  "/home/janos/quantizationEngine/jsonparser/jsonParser.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonParser.cpp.o"
+  "/home/janos/quantizationEngine/jsonparser/jsonValue.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/jsonparser/jsonValue.cpp.o"
   "/home/janos/quantizationEngine/main/main.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/main/main.cpp.o"
   "/home/janos/quantizationEngine/network/network.cpp" "/home/janos/quantizationEngine/build/engine.out.dir/home/janos/quantizationEngine/network/network.cpp.o"
   )
