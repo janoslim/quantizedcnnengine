@@ -1,6 +1,7 @@
 #ifndef IOPOOL_H
 #define IOPOOL_H
 
+#include <vector>
 #include <map>
 #include "./io.h"
 
@@ -13,7 +14,7 @@ public:
     ~IOPool();
     void finish_input(int id);
     void add_IO(IO* io_obj);
-    void get_access(int id);
+    void get_access(std::vector<int>& inputVec);
 };
 
 #endif

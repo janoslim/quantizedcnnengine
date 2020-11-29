@@ -6,130 +6,18 @@
 using namespace _json_parser_qt;
 
 //
-JsonValue::JsonValue() 
+
+void JsonObject::pushPair(JsonString* jsonStringPtr, JsonValue* jsonValuePtr)
 {
+    this->attribute_vector.push_back(std::pair<JsonString*, JsonValue*>(jsonStringPtr, jsonValuePtr));
 }
 
-JsonValue::~JsonValue()
+void JsonArray::pushMember(JsonValue* jsonValuePtr)
 {
-}
-//
-
-JsonObject::JsonObject()
-{
-}
-
-JsonObject::~JsonObject()
-{
-}
-
-void JsonObject::pushPair(JsonString* str, JsonValue* jv)
-{
-    
-}
-//
-JsonArray::JsonArray()
-{
-}
-
-JsonArray::~JsonArray()
-{
-}
-
-void JsonArray::pushMember(JsonValue* v)
-{
-
-}
-//
-JsonNumber::JsonNumber()
-{
-}
-
-JsonNumber::~JsonNumber()
-{
-}
-
-
-void JsonNumber::setValue(std::string& str)
-{
-}
-//
-JsonString::JsonString()
-{
-    this->str = "";
-}
-
-JsonString::~JsonString()
-{
+    this->member_vector.push_back(jsonValuePtr);
 }
 
 void JsonString::pushChar(char c)
 {
     this->str.push_back(c);
 }
-//
-JsonBoolean::JsonBoolean()
-{
-}
-
-JsonBoolean::~JsonBoolean()
-{
-}
-
-void JsonBoolean::setValue(JBOOL j)
-{
-}
-
-void JsonObject::printValue()
-{
-
-}
-
-void JsonString::printValue()
-{
-    
-}
-
-void JsonArray::printValue()
-{
-    
-}
-
-void JsonBoolean::printValue()
-{
-    
-}
-
-void JsonNumber::printValue()
-{
-    
-}
-
-JsonObject* JsonObject::getValue()
-{
-
-}
-
-JsonString* JsonString::getValue()
-{
-    
-}
-
-JsonArray* JsonArray::getValue()
-{
-    
-}
-
-JsonBoolean* JsonBoolean::getValue()
-{
-    
-}
-
-JsonNumber* JsonNumber::getValue()
-{
-    
-}
-
-
-
-

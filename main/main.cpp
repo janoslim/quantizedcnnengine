@@ -2,11 +2,27 @@
 #include "../network/network.h"
 #include "../io/io.h"
 #include "../io/iopool.h"
+#include "../jsonparser/jsonValue.h"
+#include "../jsonparser/jsonParser.h"
+#include "../model/model.h"
 
+using namespace _json_parser_qt;
 
 int main()
 {
+	JsonParser* jsonParser = new JsonParser();
+	jsonParser->readJsonFile("./networkModel.json");
+	jsonParser->printResult();
+	
 	IOPool* iopool = new IOPool();
+	Model mainModel;
+	
+	
+
+	mainModel.makeObject(*jsonParser, *iopool);
+	iopool->finish_input(-1);
+	mainModel.geRootNetwork()->forward();
+	/* IOPool* iopool = new IOPool();
 
 	IO* io[10];
 
@@ -54,5 +70,5 @@ int main()
 	delete net5;
 	delete net6;
 	delete net7;
-	delete net8;
+	delete net8; */
 }

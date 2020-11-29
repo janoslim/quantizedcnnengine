@@ -30,30 +30,30 @@ namespace _json_parser_qt
     public:
         JsonValue();
         ~JsonValue();
-        virtual JsonValue* getValue() = 0;
         virtual void printValue() = 0;
     };
 
     class JsonArray : public JsonValue
     {
     private:
-        std::vector<JsonValue> member_vector;
+        std::vector<JsonValue*> member_vector;
     public:
         JsonArray();
         ~JsonArray();
         void pushMember(JsonValue*);
-        JsonArray* getValue();
+        std::vector<JsonValue*>* getValue();
         void printValue();
     };
 
     class JsonNumber : public JsonValue
     {
     private:
-        
+        int intval;
+        double doubleval;
     public:
         JsonNumber();
         ~JsonNumber();
-        JsonNumber* getValue();
+        int getValue();
         void setValue(std::string&);
         void printValue();
     };
@@ -66,7 +66,7 @@ namespace _json_parser_qt
         JsonString();
         ~JsonString();
         void pushChar(char c);
-        JsonString* getValue();
+        std::string getValue();
         void printValue();
     };
 
@@ -90,7 +90,7 @@ namespace _json_parser_qt
         JsonObject();
         ~JsonObject();
         void pushPair(JsonString*, JsonValue*);
-        JsonObject* getValue();
+        std::vector<std::pair<JsonString*, JsonValue*>>* getValue();
         void printValue();
     };
 }

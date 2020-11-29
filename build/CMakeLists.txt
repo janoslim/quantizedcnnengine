@@ -13,6 +13,9 @@ set(LAYER_DIR ../layer)
 set(IO_DIR ../io)
 # 변수 JSONPARSER_DIR 설정
 set(JSONPARSER_DIR ../jsonparser)
+# 변수 MODEL_DIR 설정
+set(MODEL_DIR ../model)
+
 
 # 변수 SOURCE 설정
 set(SOURCE ${MAIN_DIR}/main.cpp 
@@ -21,6 +24,10 @@ set(SOURCE ${MAIN_DIR}/main.cpp
             ${IO_DIR}/iopool.cpp
             ${JSONPARSER_DIR}/jsonParser.cpp
             ${JSONPARSER_DIR}/jsonValue.cpp
+            ${JSONPARSER_DIR}/jsonValue_constr.cpp
+            ${JSONPARSER_DIR}/jsonValue_gs.cpp
+            ${JSONPARSER_DIR}/jsonValue_print.cpp
+            ${MODEL_DIR}/model.cpp
             )
 
 # 변수 OUTPUT 설정

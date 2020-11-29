@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./iopool.h"
 #include <utility>
+#include <vector>
 
 IOPool::IOPool()
 {
@@ -11,9 +12,12 @@ IOPool::~IOPool()
 
 }
 
-void IOPool::get_access(int id)
+void IOPool::get_access(std::vector<int>& inputVec)
 {
-    io_map[id]->get_access();
+    for(int& id : inputVec)
+    {
+        io_map[id]->get_access();
+    }
 }
 
 void IOPool::finish_input(int id)

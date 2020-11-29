@@ -21,6 +21,7 @@ namespace _json_parser_qt
     class JsonParser
     {
     private:
+        JsonObject* mainObject;
         void parse(std::ifstream& fileObj);
         void parseError(enum ERRORTYPE);
         JsonObject* stateObject(std::ifstream& fileObj);
@@ -30,7 +31,11 @@ namespace _json_parser_qt
         JsonString* stateString(std::ifstream& fileObj);
     public:
         JsonParser();
+        ~JsonParser();
         void readJsonFile(char* filePath);
+        void printResult();
+        JsonObject* getMainObject();
+        
     };
 
 }

@@ -1,10 +1,12 @@
 #include "./io.h"
+#include <iostream>
 
 IO::IO(int ID)
 {
     this->ID = ID;
     this->key = new std::mutex();
     this->key->lock();
+    std::cout << ID << std::endl;
 }
 
 IO::~IO()
