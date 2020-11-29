@@ -5,6 +5,7 @@
 
 IOPool::IOPool()
 {
+    std::fill_n(this->bitmap, 1024, false);
 }
 
 IOPool::~IOPool()
@@ -16,17 +17,22 @@ void IOPool::get_access(std::vector<int>& inputVec)
 {
     for(int& id : inputVec)
     {
-        io_map[id]->get_access();
+        io_map[id+1]->get_access();
     }
 }
 
 void IOPool::finish_input(int id)
 {
-    io_map[id]->ready();
+    io_map[id+1]->ready();
 }
 
 void IOPool::add_IO(IO* io_obj)
 {
-    io_map.insert(std::pair<int, IO*>(io_obj->get_ID(), io_obj));
+    int id = io_obj->get_ID() + 1;
+    if(this->bitmap[id] == false)
+    {
+        io_map.insert(std::pair<int, IO*>(id, io_obj));
+        this->bitmap[id] = true;
+    }
 }
 

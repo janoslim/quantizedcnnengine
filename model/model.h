@@ -11,7 +11,7 @@ class Model
 {
 private:
     Network* rootNetwork;
-    Network* makeNetwork(JsonObject*);
+    Network* makeNetwork(JsonObject*, IOPool&);
 public:
     Model();
     ~Model();

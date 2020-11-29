@@ -8,49 +8,47 @@ using namespace _json_parser_qt;
 
 Network* Model::makeObject(JsonParser& jsonParser, IOPool& iopool)
 {
-    // main Object
-    
     JsonObject* mainObject = jsonParser.getMainObject();
-    // main object의 Network (main network)
     std::vector<std::pair<JsonString*, JsonValue*>>* modelVector = mainObject->getValue();
-
-    this->rootNetwork = new Network(&iopool);
-    this->rootNetwork->add_network(this->makeNetwork((JsonObject*)modelVector->front().second));
+    this->rootNetwork = this->makeNetwork((JsonObject*)modelVector->front().second, iopool);
+    IO* io = new IO(-1);
+    this->rootNetwork->getIOPool()->add_IO(io);
 }
 
-Network*  Model::makeNetwork(JsonObject* networkObject)
-{
+Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
+{   
     std::vector<std::pair<JsonString*, JsonValue*>>& networkAttr = *(networkObject->getValue());
     if(networkAttr.size() == 0)
         return NULL;
-
+ 
     JsonString* jsonKey;
     JsonValue* jsonValue;
-    Network* networkObj = new Network(this->rootNetwork->getIOPool());
-
+    Network* networkObj = new Network(&iopool);
+    
+    // Network안 object의 Attribute을 검사한다
     for(std::pair<JsonString*, JsonValue*> kvPair : networkAttr)
     {
         jsonKey = kvPair.first;
         jsonValue = kvPair.second;
-        
         std::string key = jsonKey->getValue();
-        
+
         if(key.compare("subnet") == 0)
         {
-            std::vector<JsonValue*>* mem_vec = ((JsonArray*)jsonValue)->getValue();
-
-            std::cout << "Size" << (*mem_vec).size() << std::endl;
-            for(JsonValue* netObject : *mem_vec) // netObject은 { network: {} }
-            {
-                std::cout << networkObj->getID() << std::endl;
-                IO* io = new IO(networkObj->getID());
-                this->rootNetwork->getIOPool()->add_IO(io);
-                // netValueVector는 attribute 부분
+            std::vector<JsonValue*>* member_vec = ((JsonArray*)jsonValue)->getValue();
+            for(JsonValue* netObject : *member_vec) // netObject은 { network: {} }
+            {  
                 std::vector<std::pair<JsonString*, JsonValue*>>* netValueVector = ((JsonObject*)netObject)->getValue();
-                
-                Network* subnet = this->makeNetwork((JsonObject*)netValueVector->front().second);
+                Network* subnet = this->makeNetwork((JsonObject*)netValueVector->front().second, iopool);
                 if (subnet != NULL)
-                    this->rootNetwork->add_network(subnet);
+                {
+                    networkObj->add_network(subnet);
+                    IO* io = new IO(subnet->getID());
+                    iopool.add_IO(io);
+                }
+                else
+                {
+                    std::cout << "SUBNET NULL!";
+                }
             }
         }
         else if(key.compare("type") == 0)

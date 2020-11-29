@@ -9,6 +9,7 @@ class IOPool
 {
 private:
     std::map<int, IO*> io_map;
+    bool bitmap[1024];
 public:
     IOPool();
     ~IOPool();
