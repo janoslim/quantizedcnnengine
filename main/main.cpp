@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../network/network.h"
-#include "../io/io.h"
-#include "../io/iopool.h"
+#include "../type/io.h"
+#include "../type/iopool.h"
 #include "../jsonparser/jsonValue.h"
 #include "../jsonparser/jsonParser.h"
 #include "../model/model.h"
@@ -20,5 +20,5 @@ int main()
 	mainModel.makeObject(*jsonParser, *iopool);
 	iopool->finish_input(-1);
 	mainModel.geRootNetwork()->forward();
-	
+	for(int i=0; i<INT64_MAX; i++) fprintf(stderr, "hiheheheheheheheieieieieeieieieiei\n");
 }
