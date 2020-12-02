@@ -43,9 +43,9 @@ void CONVOLUTIONAL_LAYER::make(int n, int* size, int* stride, int* padding, void
     }
 }
 
-IO CONVOLUTIONAL_LAYER::forward(IO* input)
+IO* CONVOLUTIONAL_LAYER::forward(IO* input)
 {
-    IO output(input->get_ID()+1);
+    IO* output = new IO(input->get_ID()+1);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -80,9 +80,9 @@ IO CONVOLUTIONAL_LAYER::forward(IO* input)
                        tb);                    // output
     }
     gemm(0, 0, m, n, k, 1, ta, k, tb, n, 1, tc, n);
-    add_bias(tc, paramB.get_param_fp(), 1, n, out_h * out_w);
+    add_bias(tc, paramB.get_param_fp(), 1, this->c, out_h * out_w);
 
-    output.set_value(h, w, c, ty, tc);
+    output->set_value(out_h, out_w, this->n, ty, tc);
 
     return output;
 }

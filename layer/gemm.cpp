@@ -1,4 +1,5 @@
 #include "gemm.h"
+#include <iostream>
 
 #define PUT_IN_REGISTER
 

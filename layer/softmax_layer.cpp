@@ -16,9 +16,9 @@ void SOFTMAX_LAYER::make(int* size, int* stride, int* padding)
 {
 }
 
-IO SOFTMAX_LAYER::forward(IO* input)
+IO* SOFTMAX_LAYER::forward(IO* input)
 {
-    IO output(input->get_ID()+1);
+    IO* output = new IO(input->get_ID()+1);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -31,7 +31,7 @@ IO SOFTMAX_LAYER::forward(IO* input)
 
     softmax(inp, inputs, 1, outp, 1);
 
-    output.set_value(h, w, c, ty, outp);
+    output->set_value(h, w, c, ty, outp);
 }
 
 void SOFTMAX_LAYER::type()

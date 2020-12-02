@@ -124,6 +124,12 @@ math.h
 ./convolutional_layer.h
 /home/shgang/quantizedcnnengine/layer/./convolutional_layer.h
 
+/home/shgang/quantizedcnnengine/layer/convolutional_layer.h
+layer.h
+/home/shgang/quantizedcnnengine/layer/layer.h
+gemm.h
+/home/shgang/quantizedcnnengine/layer/gemm.h
+
 /home/shgang/quantizedcnnengine/layer/dense_layer.cpp
 dense_layer.h
 /home/shgang/quantizedcnnengine/layer/dense_layer.h
@@ -137,6 +143,8 @@ gemm.h
 /home/shgang/quantizedcnnengine/layer/gemm.cpp
 gemm.h
 /home/shgang/quantizedcnnengine/layer/gemm.h
+iostream
+-
 
 /home/shgang/quantizedcnnengine/layer/gemm.h
 
@@ -171,6 +179,8 @@ math.h
 /home/shgang/quantizedcnnengine/main/main.cpp
 iostream
 -
+fstream
+-
 ../network/network.h
 /home/shgang/quantizedcnnengine/network/network.h
 ../type/io.h
@@ -183,6 +193,18 @@ iostream
 /home/shgang/quantizedcnnengine/jsonparser/jsonParser.h
 ../model/model.h
 /home/shgang/quantizedcnnengine/model/model.h
+../layer/activation_layer.h
+/home/shgang/quantizedcnnengine/layer/activation_layer.h
+../layer/convolutional_layer.h
+/home/shgang/quantizedcnnengine/layer/convolutional_layer.h
+../layer/dense_layer.h
+/home/shgang/quantizedcnnengine/layer/dense_layer.h
+../layer/gemm.h
+/home/shgang/quantizedcnnengine/layer/gemm.h
+../layer/maxpool_layer.h
+/home/shgang/quantizedcnnengine/layer/maxpool_layer.h
+../layer/softmax_layer.h
+/home/shgang/quantizedcnnengine/layer/softmax_layer.h
 
 /home/shgang/quantizedcnnengine/model/./model.h
 ../network/network.h

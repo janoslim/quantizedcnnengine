@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "../network/network.h"
 #include "../type/io.h"
 #include "../type/iopool.h"
@@ -16,34 +17,130 @@ using namespace _json_parser_qt;
 
 int main()
 {
+	IOPool* iopool = new IOPool();
+
+
+
+
+	FILE* inpfi = fopen("./data/input2.bin", "rb");
+	float* inp = new float[28*28];
+	fread(inp, 28*28, sizeof(float), inpfi);
+
+	IO* input = new IO(0);
+	input->set_value(28, 28, 1, 3, inp);
+	input->print_io();
+
+
 	ILayer** layers = new ILayer*[5];
 
-	CONVOLUTIONAL_LAYER* conv = new CONVOLUTIONAL_LAYER(1,0,3,10,10);
+
+
+	FILE* wb = fopen("./data/weightsFloat.weights", "rb");
+
+	int filter = 5;
 	int* size = new int[2];
+	size[0] = 2;
+	size[1] = 2;
 	int* stride = new int[2];
+	stride[0] = 1;
+	stride[1] = 1;
 	int* padding = new int[2];
-	float* weights = new float[10];
-	float* bias = new float[10];
-	conv->make(1, size, stride, padding, weights, bias);
+	padding[0] = 0;
+	padding[0] = 0;
+
+	int weightC = size[0]*size[1]*filter;
+	int biasC = filter;
+
+	float* weight = new float[weightC];
+	float* bias = new float[biasC];
+
+	fprintf(stderr, "\nconv > w, b정보\n");
+	fread(weight, weightC, sizeof(float), wb);
+	for(int i=0; i<weightC; i++)
+	{
+		fprintf(stderr, "%f ", weight[i]);
+	}
+	fprintf(stderr, "\n");
+	fread(bias, biasC, sizeof(float), wb);
+	for(int i=0; i<biasC; i++)
+	{
+		fprintf(stderr, "%f ", bias[i]);
+	}
+	fprintf(stderr, "\n\n\n");
+
+	CONVOLUTIONAL_LAYER* conv = new CONVOLUTIONAL_LAYER(1, 0, 3, weightC, biasC);
+	conv->make(filter, size, stride, padding, weight, bias);
 	layers[0] = (ILayer *)conv;
 
-	ACTIVATION_LAYER* actv1 = new ACTIVATION_LAYER(2,1,3);
+	IO* output = layers[0]->forward(input);
+	output->print_io();
+
+
+
+
+
+	ACTIVATION_LAYER* actv1 = new ACTIVATION_LAYER(2, 1, 3);
 	actv1->make(3);
 	layers[1] = (ILayer *)actv1;
+	
+	IO* output1 = layers[1]->forward(output);
+	output1->print_io();
 
-	MAXPOOL_LAYER* maxp = new MAXPOOL_LAYER(3,2,3);
+
+
+
+	
+	MAXPOOL_LAYER* maxp = new MAXPOOL_LAYER(3, 2, 3);
+	size[0] = 2;
+	size[1] = 2;
+	stride[0] = 2;
+	stride[1] = 2;
+	padding[0] = 0;
+	padding[1] = 0;
 	maxp->make(size, stride, padding);
 	layers[2] = (ILayer *)maxp;
 
-	DENSE_LAYER* dense = new DENSE_LAYER(4,3,3,10,10);
-	dense->make(10, weights, bias);
+	IO* output2 = layers[2]->forward(output1);
+	output2->print_io();
+
+
+
+	int n = 10;
+	int shape = 845;
+
+	free(weight);
+	weight = new float[n*shape];
+	free(bias);
+	bias = new float[n];
+
+	fread(weight, shape*n, sizeof(float), wb);
+	fread(bias, n, sizeof(float), wb);
+
+	fprintf(stderr, "\ndense > w, b정보\n");
+	for(int i=0; i<n; i++)
+	{
+		fprintf(stderr, "%f ", weight[i]);
+	}
+	fprintf(stderr, "\n");
+	for(int i=0; i<n; i++)
+	{
+		fprintf(stderr, "%f ", bias[i]);
+	}
+	fprintf(stderr, "\n\n\n");
+	
+
+	DENSE_LAYER* dense = new DENSE_LAYER(4, 3, 3, shape*n, n);
+	dense->make(10, weight, bias);
 	layers[3] = (ILayer *)dense;
 
-	ACTIVATION_LAYER* actv2 = new ACTIVATION_LAYER(5,4,3);
-	actv2->make(0);
-	layers[4] = (ILayer *)actv2;
+	IO* output3 = layers[3]->forward(output2);
+	output3->print_io();
 
-	for(int i=0; i<5; i++) {
-		//layers[i]->forward(input);
-	}
+	// ACTIVATION_LAYER* actv2 = new ACTIVATION_LAYER(5,4,3);
+	// actv2->make(0);
+	// layers[4] = (ILayer *)actv2;
+
+	// for(int i=0; i<5; i++) {
+	// 	//layers[i]->forward(input);
+	// }
 }

@@ -23,9 +23,9 @@ void MAXPOOL_LAYER::make(int* size, int* stride, int* padding)
     this->padding = padding;
 }
 
-IO MAXPOOL_LAYER::forward(IO* input)
+IO* MAXPOOL_LAYER::forward(IO* input)
 {
-    IO output(input->get_ID()+1);
+    IO* output = new IO(input->get_ID()+1);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -33,8 +33,8 @@ IO MAXPOOL_LAYER::forward(IO* input)
 
     float* inp = input->get_value_fp();
 
-    int out_w = (w + padding - size) / stride[0] + 1;
-    int out_h = (h + padding - size) / stride[1] + 1;
+    int out_w = (w + padding[0] - size[0]) / stride[0] + 1;
+    int out_h = (h + padding[1] - size[1]) / stride[1] + 1;
     int out_c = c;
     int outputs = out_w*out_h*out_c;
 
@@ -42,27 +42,24 @@ IO MAXPOOL_LAYER::forward(IO* input)
     int w_offset = -padding[0] / 2;
     int h_offset = -padding[1] / 2;
 
-    int h = out_h;
-    int w = out_w;
-    int c = c;
     float* outp = new float[outputs];
     int* indexes = new int[outputs];
 
-    for (k = 0; k < c; ++k)
+    for (k = 0; k < out_c; ++k)
     {
-        for (i = 0; i < h; ++i)
+        for (i = 0; i < out_h; ++i)
         {
-            for (j = 0; j < w; ++j)
+            for (j = 0; j < out_w; ++j)
             {
-                int out_index = j + w * (i + h * k);
+                int out_index = j + out_w * (i + out_h * k);
                 float max = -FLT_MAX;
                 int max_i = -1;
                 for (n = 0; n < size[1]; ++n)
                 {
                     for (m = 0; m < size[0]; ++m)
                     {
-                        int cur_h = h_offset + i * stride[1] + n;
-                        int cur_w = w_offset + j * stride[0] + m;
+                        int cur_h = h_offset + i * stride[0] + n;
+                        int cur_w = w_offset + j * stride[1] + m;
                         int index = cur_w + w * (cur_h + h * k);
                         int valid = (cur_h >= 0 && cur_h < h &&
                                      cur_w >= 0 && cur_w < w);
@@ -78,7 +75,7 @@ IO MAXPOOL_LAYER::forward(IO* input)
         }
     }
 
-    output.set_value(h, w, c, ty, outp);
+    output->set_value(out_h, out_w, out_c, ty, outp);
 
     return output;
 }

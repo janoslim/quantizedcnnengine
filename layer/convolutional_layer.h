@@ -27,7 +27,7 @@ public:
     CONVOLUTIONAL_LAYER(int lid, int iid, int type, int wsize, int bsize);
     ~CONVOLUTIONAL_LAYER();
     void make(int n, int* size, int* stride, int* padding, void* weights, void* bias);
-    IO forward(IO* input);
+    IO* forward(IO* input);
     void type();
     void quant();
 };

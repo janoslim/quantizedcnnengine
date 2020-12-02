@@ -58,12 +58,20 @@ engine.out.dir/home/shgang/quantizedcnnengine/layer/softmax_layer.cpp.o: /home/s
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/jsonparser/./jsonValue.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/jsonparser/jsonParser.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/jsonparser/jsonValue.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/activation_layer.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/convolutional_layer.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/dense_layer.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/gemm.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/layer.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/maxpool_layer.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/layer/softmax_layer.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/main/main.cpp
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/model/model.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/network/network.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/type/./io.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/type/io.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/type/iopool.h
+engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/type/param.h
 engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o: /home/shgang/quantizedcnnengine/type/type.h
 
 engine.out.dir/home/shgang/quantizedcnnengine/model/model.cpp.o: /home/shgang/quantizedcnnengine/jsonparser/./jsonValue.h

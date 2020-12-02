@@ -22,7 +22,7 @@ public:
     DENSE_LAYER(int lid, int iid, int type, int wsize, int bsize);
     ~DENSE_LAYER();
     void make(int n, void* weights, void* bias);
-    IO forward(IO* input);
+    IO* forward(IO* input);
     void type();
     void quant();
 };

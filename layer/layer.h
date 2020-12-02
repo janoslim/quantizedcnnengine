@@ -19,7 +19,7 @@ public:
     int ioid;
     Tinfo ty;
     
-    virtual IO forward(IO* input)=0;
+    virtual IO* forward(IO* input)=0;
     virtual void type()=0;
     virtual void quant()=0;
 };

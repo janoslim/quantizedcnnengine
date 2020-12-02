@@ -59,12 +59,20 @@ engine.out.dir/home/shgang/quantizedcnnengine/main/main.cpp.o
  /home/shgang/quantizedcnnengine/jsonparser/./jsonValue.h
  /home/shgang/quantizedcnnengine/jsonparser/jsonParser.h
  /home/shgang/quantizedcnnengine/jsonparser/jsonValue.h
+ /home/shgang/quantizedcnnengine/layer/activation_layer.h
+ /home/shgang/quantizedcnnengine/layer/convolutional_layer.h
+ /home/shgang/quantizedcnnengine/layer/dense_layer.h
+ /home/shgang/quantizedcnnengine/layer/gemm.h
+ /home/shgang/quantizedcnnengine/layer/layer.h
+ /home/shgang/quantizedcnnengine/layer/maxpool_layer.h
+ /home/shgang/quantizedcnnengine/layer/softmax_layer.h
  /home/shgang/quantizedcnnengine/main/main.cpp
  /home/shgang/quantizedcnnengine/model/model.h
  /home/shgang/quantizedcnnengine/network/network.h
  /home/shgang/quantizedcnnengine/type/./io.h
  /home/shgang/quantizedcnnengine/type/io.h
  /home/shgang/quantizedcnnengine/type/iopool.h
+ /home/shgang/quantizedcnnengine/type/param.h
  /home/shgang/quantizedcnnengine/type/type.h
 engine.out.dir/home/shgang/quantizedcnnengine/model/model.cpp.o
  /home/shgang/quantizedcnnengine/jsonparser/./jsonValue.h

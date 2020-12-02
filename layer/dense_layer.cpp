@@ -37,9 +37,9 @@ void DENSE_LAYER::make(int n, void* weights, void* bias)
     }
 }
 
-IO DENSE_LAYER::forward(IO* input)
+IO* DENSE_LAYER::forward(IO* input)
 {
-    IO output(input->get_ID()+1);
+    IO* output = new IO(input->get_ID()+1);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -57,7 +57,7 @@ IO DENSE_LAYER::forward(IO* input)
     gemm(0,1,m,n,k,1,ta,k,tb,k,1,tc,n);
     axpy_cpu(n, 1, this->paramB.get_param_fp(), 1, tc, 1);
 
-    output.set_value(h, w, c, ty, tc);
+    output->set_value(n, 1, 1, ty, tc);
 
     return output;
 }

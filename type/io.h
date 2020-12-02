@@ -35,6 +35,7 @@ public:
 	int16_t* get_value_i16();
 	float* get_value_fp();
 	//dp* get_value_dp();
+	void print_io();
 };
 
 #endif

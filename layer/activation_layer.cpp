@@ -18,9 +18,9 @@ void ACTIVATION_LAYER::make(int atype)
     this->atype = (Ainfo)atype;
 }
 
-IO ACTIVATION_LAYER::forward(IO* input)
+IO* ACTIVATION_LAYER::forward(IO* input)
 {
-    IO output(input->get_ID()+1);
+    IO* output = new IO(input->get_ID()+1);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -30,7 +30,7 @@ IO ACTIVATION_LAYER::forward(IO* input)
 
     activate_array_cpu_custom(outp, h*w*c, this->atype);
     
-    output.set_value(h, w, c, ty, outp);
+    output->set_value(h, w, c, ty, outp);
 }
 
 void ACTIVATION_LAYER::type()

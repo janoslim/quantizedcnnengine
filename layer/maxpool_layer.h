@@ -23,7 +23,7 @@ public:
     MAXPOOL_LAYER(int lid, int iid, int type);
     ~MAXPOOL_LAYER();
     void make(int* size, int* stride, int* padding);
-    IO forward(IO* input);
+    IO* forward(IO* input);
     void type();
     void quant();
 };

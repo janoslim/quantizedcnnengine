@@ -6,7 +6,7 @@ IO::IO(int ID)
     this->ID = ID;
     this->key = new std::mutex();
     this->key->lock();
-    std::cout << ID << std::endl;
+    std::cout << "IO 생성 : id = " << ID << std::endl;
 }
 
 IO::~IO()
@@ -77,4 +77,15 @@ int16_t* IO::get_value_i16()
 float* IO::get_value_fp()
 {
     return (float *)io;
+}
+
+void IO::print_io()
+{
+    fprintf(stderr, "IO 정보 : id = %d h = %d w = %d c = %d\n", ID, h, w, c);
+    float* io = (float *)this->io;
+	for(int i=0; i<h*w; i++)
+	{
+		fprintf(stderr, "%f ", io[i]);
+	}
+	fprintf(stderr, "\n---------------------------------------------------------------\n");
 }

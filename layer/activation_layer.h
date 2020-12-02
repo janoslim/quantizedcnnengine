@@ -42,7 +42,7 @@ public:
     ACTIVATION_LAYER(int lid, int iid, int type);
     ~ACTIVATION_LAYER();
     void make(int atype);
-    IO forward(IO* input);
+    IO* forward(IO* input);
     void type();
     void quant();
 };
