@@ -2,7 +2,7 @@
 #define MODEL_H
 
 #include "../network/network.h"
-#include "../io/iopool.h"
+#include "../type/iopool.h"
 #include "../jsonparser/jsonParser.h"
 #include "../jsonparser/jsonValue.h"
 

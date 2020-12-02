@@ -1,8 +1,8 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include "../io/io.h"
-#include "../io/iopool.h"
+#include "../type/io.h"
+#include "../type/iopool.h"
 #include <vector>
 #include <thread>
 

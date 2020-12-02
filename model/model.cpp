@@ -1,5 +1,5 @@
 #include "../network/network.h"
-#include "../io/iopool.h"
+#include "../type/iopool.h"
 #include "../jsonparser/jsonParser.h"
 #include "./model.h"
 #include <stdlib.h>
