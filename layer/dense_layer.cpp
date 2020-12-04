@@ -32,7 +32,7 @@ DENSE_LAYER::~DENSE_LAYER()
 
 }
 
-void DENSE_LAYER::make(void* weights, void* bias)
+void DENSE_LAYER::make()
 {
     
     this->n = this->units;
@@ -40,23 +40,24 @@ void DENSE_LAYER::make(void* weights, void* bias)
     switch (this->ty)
     {
         case INT:
-            this->paramW.set_param_i((int *)weights);
-            this->paramB.set_param_i((int *)bias);
+            this->paramW.set_param_i(weightIptr);
+            this->paramB.set_param_i(biasIptr);
             break;
         case INT8:
-            this->paramW.set_param_i8((int8_t *)weights);
-            this->paramB.set_param_i8((int8_t *)bias);
+            this->paramW.set_param_i8(weightI8ptr);
+            this->paramB.set_param_i8(biasI8ptr);
             break;
         case INT16:
-            this->paramW.set_param_i16((int16_t *)weights);
-            this->paramB.set_param_i16((int16_t *)bias);
+            this->paramW.set_param_i16(weightI16ptr);
+            this->paramB.set_param_i16(biasI16ptr);
             break;
         case FLOAT:
-            this->paramW.set_param_fp((float *)weights);
-            this->paramB.set_param_fp((float *)bias);
+            this->paramW.set_param_fp(weightFptr);
+            this->paramB.set_param_fp(biasFptr);
             break;
         default:
             std::cout << "Not handled data Type Error" << std::endl;
+            exit(-1);
         // case 4:
         //     this->paramW.set_param_dp((int *)weights);
         //     this->paramB.set_param_dp((int *)bias);
@@ -65,9 +66,11 @@ void DENSE_LAYER::make(void* weights, void* bias)
 
 void DENSE_LAYER::forward()
 {
+    this->preset_forward();
+
     IO* input = this->iopool->getIO(this->ioid);
     IO* output = this->iopool->getIO(this->layerid);
-
+    
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -88,6 +91,11 @@ void DENSE_LAYER::forward()
 
     // inform output finished
     iopool->finish_input(this->layerid);
+
+    for(Network* net : this->child_networks)
+	{
+		net->wait_thread();
+	}
 }
 
 void DENSE_LAYER::type()

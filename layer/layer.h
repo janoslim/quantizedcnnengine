@@ -26,6 +26,7 @@ public:
     virtual void type()=0;
     virtual void quant()=0;
     virtual void setupLayer() = 0;
+    virtual void make(){};
 };
 
 #endif

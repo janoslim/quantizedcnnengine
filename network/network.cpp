@@ -17,7 +17,7 @@ void Network::forward()
 	std::thread::id this_id = std::this_thread::get_id();
 	// check if input ready
 	this->check_input();
-	std::cout << "tid: " << this_id << " running network " << this->id << "." << static_cast<std::underlying_type<NETWORKTYPE>::type>(this->network_type) << std::endl;
+	//std::cout << "tid: " << this_id << " running network " << this->id << "." << static_cast<std::underlying_type<NETWORKTYPE>::type>(this->network_type) << std::endl;
 
 	for(Network* net : this->child_networks)
 	{
@@ -28,8 +28,8 @@ void Network::forward()
 		net->wait_thread();
 	}
 
-	std::this_thread::sleep_for (std::chrono::seconds(2));
-	this->iopool->finish_input(this->output_id);
+	//std::this_thread::sleep_for (std::chrono::seconds(2));
+	this->iopool->finish_input(this->id);
 }
 
 void Network::check_input()
@@ -139,4 +139,57 @@ void Network::setupLayer()
 void Network::setDType(Tinfo t)
 {
 	this->Dtype = t;
+}
+
+void Network::setMyThead(std::thread* t)
+{
+	this->my_thread = t;
+}
+
+void Network::preset_forward()
+{
+	this->check_input();
+    std::cout << " running network " << this->id << "." << static_cast<std::underlying_type<NETWORKTYPE>::type>(this->network_type) << std::endl;
+
+    // run child
+    for(Network* net : this->child_networks)
+	{
+		net->setMyThead(new std::thread(&Network::forward, net));
+	}
+}
+
+NETWORKTYPE Network::getNetworkType()
+{
+	return this->network_type;
+}
+
+
+std::vector<int>& Network::getPoolSizeVec()
+{
+	return this->pool_size;
+}
+
+std::vector<int>& Network::getStrideVec()
+{
+	return this->stride;
+}
+
+std::vector<int>& Network::getSizeVec()
+{
+	return this->size;
+}
+
+int Network::getFilters()
+{
+	return this->filters;
+}
+
+std::vector<int>& Network::getShapeVec()
+{
+	return this->shape;
+}
+
+int Network::getUnits()
+{
+	return this->units;
 }

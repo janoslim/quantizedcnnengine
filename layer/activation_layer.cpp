@@ -34,6 +34,8 @@ void ACTIVATION_LAYER::make(int atype)
 
 void ACTIVATION_LAYER::forward()
 {
+    this->preset_forward();
+
     IO* input = iopool->getIO(this->ioid);
     IO* output = iopool->getIO(this->layerid);
     this->h = input->get_h();
@@ -49,6 +51,10 @@ void ACTIVATION_LAYER::forward()
 
     iopool->finish_input(this->layerid);
 
+    for(Network* net : this->child_networks)
+	{
+		net->wait_thread();
+	}
 }
 
 void ACTIVATION_LAYER::type()

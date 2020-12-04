@@ -25,10 +25,18 @@ private:
     std::vector<int> kernel_padding;
 
 public:
+    float* weightFptr;
+    float* biasFptr;
+    int* weightIptr;
+    int* biasIptr;
+    int8_t* weightI8ptr;
+    int8_t* biasI8ptr;
+    int16_t* weightI16ptr;
+    int16_t* biasI16ptr;
     CONVOLUTIONAL_LAYER(IOPool*);
     CONVOLUTIONAL_LAYER(IOPool*, int lid, int iid, int Dtype, int wsize, int bsize);
     ~CONVOLUTIONAL_LAYER();
-    void make(void* weights, void* bias);
+    void make();
     void forward();
     void type();
     void quant();

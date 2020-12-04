@@ -32,7 +32,7 @@ MAXPOOL_LAYER::~MAXPOOL_LAYER()
 
 void MAXPOOL_LAYER::make()
 {
-/*     this->size = size;
+/*     this->size = pool_size;
     this->stride = stride;
     this->padding = padding; */   
     this->kernel_padding.push_back(0);
@@ -41,28 +41,27 @@ void MAXPOOL_LAYER::make()
 
 void MAXPOOL_LAYER::forward()
 {
+    this->preset_forward();
+
     IO* input = this->iopool->getIO(this->ioid);
     IO* output = this->iopool->getIO(this->layerid);
+
 
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
     this->ty = (Tinfo)input->get_ty();
-
     float* inp = input->get_value_fp();
-
-    int out_w = (w + kernel_padding[0] - size[0]) / stride[0] + 1;
-    int out_h = (h + kernel_padding[1] - size[1]) / stride[1] + 1;
+    int out_w = (w + kernel_padding[0] - pool_size[0]) / stride[0] + 1;
+    int out_h = (h + kernel_padding[1] - pool_size[1]) / stride[1] + 1;
     int out_c = c;
     int outputs = out_w*out_h*out_c;
-
     int i, j, k, m, n;
     int w_offset = -kernel_padding[0] / 2;
     int h_offset = -kernel_padding[1] / 2;
-
     float* outp = new float[outputs];
     int* indexes = new int[outputs];
-
+    
     for (k = 0; k < out_c; ++k)
     {
         for (i = 0; i < out_h; ++i)
@@ -72,9 +71,9 @@ void MAXPOOL_LAYER::forward()
                 int out_index = j + out_w * (i + out_h * k);
                 float max = -FLT_MAX;
                 int max_i = -1;
-                for (n = 0; n < size[1]; ++n)
+                for (n = 0; n < pool_size[1]; ++n)
                 {
-                    for (m = 0; m < size[0]; ++m)
+                    for (m = 0; m < pool_size[0]; ++m)
                     {
                         int cur_h = h_offset + i * stride[0] + n;
                         int cur_w = w_offset + j * stride[1] + m;
@@ -92,10 +91,13 @@ void MAXPOOL_LAYER::forward()
             }
         }
     }
-
     output->set_value(out_h, out_w, out_c, ty, outp);
-
     iopool->finish_input(this->layerid);
+
+    for(Network* net : this->child_networks)
+	{
+		net->wait_thread();
+	}
 }
 
 void MAXPOOL_LAYER::type()

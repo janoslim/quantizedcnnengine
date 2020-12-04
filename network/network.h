@@ -51,7 +51,7 @@ protected:
 public:
 	Network(IOPool* iopool);
 	virtual ~Network();
-	void forward();
+	virtual void forward();
 	void wait_thread();
 	void setId(int id);
 	void setDType(Tinfo);
@@ -68,9 +68,19 @@ public:
 	void setFilter(int);
 	void setPadding(PADDINGTYPE);
 	int getID();
+	NETWORKTYPE getNetworkType();
 	IOPool* getIOPool();
 	void setIOPool(IOPool*);
+	void setMyThead(std::thread*);
+	void preset_forward();
+	std::vector<int>& getPoolSizeVec();
+	std::vector<int>& getStrideVec();
+	std::vector<int>& getSizeVec();
+	std::vector<int>& getShapeVec();
+	int getUnits();
+	int getFilters();
 	// This function setup after makeObject()
 	virtual void setupLayer();
+	virtual void make(){};
 };
 #endif

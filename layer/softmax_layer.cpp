@@ -30,6 +30,8 @@ void SOFTMAX_LAYER::make()
 
 void SOFTMAX_LAYER::forward()
 {
+    this->preset_forward();
+
     IO* input = this->iopool->getIO(this->ioid);
     IO* output = this->iopool->getIO(this->layerid);
 
@@ -48,6 +50,12 @@ void SOFTMAX_LAYER::forward()
     output->set_value(h, w, c, ty, outp);
 
     iopool->finish_input(this->layerid);
+
+    // join threads
+    for(Network* net : this->child_networks)
+	{
+		net->wait_thread();
+	}
 }
 
 void SOFTMAX_LAYER::type()

@@ -36,7 +36,7 @@ CONVOLUTIONAL_LAYER::~CONVOLUTIONAL_LAYER()
     delete this->padding; */
 }
 
-void CONVOLUTIONAL_LAYER::make(void* weights, void* bias)
+void CONVOLUTIONAL_LAYER::make()
 {
     /* this->n = n; >>  this->filters;
     this->size = size;  >> this->size;
@@ -47,20 +47,20 @@ void CONVOLUTIONAL_LAYER::make(void* weights, void* bias)
     switch (this->ty)
     {
         case INT:
-            this->paramW.set_param_i((int *)weights);
-            this->paramB.set_param_i((int *)bias);
+            this->paramW.set_param_i(weightIptr);
+            this->paramB.set_param_i(biasIptr);
             break;
         case INT8:
-            this->paramW.set_param_i8((int8_t *)weights);
-            this->paramB.set_param_i8((int8_t *)bias);
+            this->paramW.set_param_i8(weightI8ptr);
+            this->paramB.set_param_i8(biasI8ptr);
             break;
         case INT16:
-            this->paramW.set_param_i16((int16_t *)weights);
-            this->paramB.set_param_i16((int16_t *)bias);
+            this->paramW.set_param_i16(weightI16ptr);
+            this->paramB.set_param_i16(biasI16ptr);
             break;
         case FLOAT:
-            this->paramW.set_param_fp((float *)weights);
-            this->paramB.set_param_fp((float *)bias);
+            this->paramW.set_param_fp(weightFptr);
+            this->paramB.set_param_fp(biasFptr);
             break;
         default:
             std::cout << "Data Type not handled" << std::endl;
@@ -72,6 +72,9 @@ void CONVOLUTIONAL_LAYER::make(void* weights, void* bias)
 
 void CONVOLUTIONAL_LAYER::forward()
 {
+    this->preset_forward();
+	
+    // run model
     IO* input = this->iopool->getIO(this->ioid);
     IO* output = this->iopool->getIO(this->layerid);
     this->h = input->get_h();
@@ -111,8 +114,15 @@ void CONVOLUTIONAL_LAYER::forward()
     add_bias(tc, paramB.get_param_fp(), 1, this->c, out_h * out_w);
 
     output->set_value(out_h, out_w, this->n, ty, tc);
+    
     // inform output finished
     iopool->finish_input(this->layerid);
+
+    // join threads
+    for(Network* net : this->child_networks)
+	{
+		net->wait_thread();
+	}
 }
 
 void CONVOLUTIONAL_LAYER::type()

@@ -23,11 +23,23 @@ int main()
 	
 	IOPool* iopool = new IOPool();
 	Model mainModel;
-	
-	mainModel.makeObject(*jsonParser, *iopool);
-	iopool->finish_input(-1);
-	mainModel.geRootNetwork()->forward();
+	// set weight path
+	std::string weightPath = "./data/weightsFloat.weights";
+	mainModel.setWeightPath(weightPath);
 
+	std::cout << "Weight set done." << std::endl;
+	// prepare model
+	mainModel.makeObject(*jsonParser, *iopool);
+
+	std::cout << "makeObject set done." << std::endl;
+	// setup input file
+	FILE* input_file = fopen("./data/input2.bin", "rb");
+	float* inp = new float[28*28];
+	fread(inp, 28*28, sizeof(float), input_file);
+	iopool->getIO(-1)->set_value(28, 28, 1, 3, inp);
+	iopool->finish_input(-1);
+	// run model
+	mainModel.geRootNetwork()->forward();
 
 
 /* 	// 신혃씨 코드
@@ -142,7 +154,6 @@ int main()
 	}
 	fprintf(stderr, "\n\n\n");
 	
-
 	DENSE_LAYER* dense = new DENSE_LAYER(4, 3, 3, shape*n, n);
 	dense->make(10, weight, bias);
 	layers[3] = (ILayer *)dense;

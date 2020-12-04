@@ -2,7 +2,7 @@
 
 PARAM::PARAM(int type, int size)
 {
-    this->set_size(type, size);
+    this->set_size(size, type);
 }
 
 //
