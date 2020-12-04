@@ -1,4 +1,4 @@
-# Install script for directory: /home/shgang/quantizedcnnengine/build
+# Install script for directory: /home/janoslim/quantizedcnnengine/build
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/shgang/quantizedcnnengine/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/janoslim/quantizedcnnengine/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

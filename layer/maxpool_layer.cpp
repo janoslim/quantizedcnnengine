@@ -1,6 +1,10 @@
 #include "maxpool_layer.h"
 
-MAXPOOL_LAYER::MAXPOOL_LAYER(int lid, int iid, int type)
+MAXPOOL_LAYER::MAXPOOL_LAYER(IOPool* iopool) : ILayer(iopool)
+{
+}
+
+MAXPOOL_LAYER::MAXPOOL_LAYER(IOPool* iopool, int lid, int iid, int type) : ILayer(iopool)
 {
     this->layerid = lid;
     this->layertype = MAXPOOL;
@@ -8,24 +12,38 @@ MAXPOOL_LAYER::MAXPOOL_LAYER(int lid, int iid, int type)
     this->ty = (Tinfo)type;
 }
 
+
+void MAXPOOL_LAYER::setupLayer()
+{
+    this->layerid = this->id;
+    this->layertype = MAXPOOL;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
+}
+
+
 MAXPOOL_LAYER::~MAXPOOL_LAYER()
 {
-    delete this->size;
+/*     delete this->size;
     delete this->shape;
     delete this->stride;
-    delete this->padding;
+    delete this->padding; */
 }
 
-void MAXPOOL_LAYER::make(int* size, int* stride, int* padding)
+void MAXPOOL_LAYER::make()
 {
-    this->size = size;
+/*     this->size = size;
     this->stride = stride;
-    this->padding = padding;
+    this->padding = padding; */   
+    this->kernel_padding.push_back(0);
+    this->kernel_padding.push_back(0);
 }
 
-IO* MAXPOOL_LAYER::forward(IO* input)
+void MAXPOOL_LAYER::forward()
 {
-    IO* output = new IO(input->get_ID()+1);
+    IO* input = this->iopool->getIO(this->ioid);
+    IO* output = this->iopool->getIO(this->layerid);
+
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -33,14 +51,14 @@ IO* MAXPOOL_LAYER::forward(IO* input)
 
     float* inp = input->get_value_fp();
 
-    int out_w = (w + padding[0] - size[0]) / stride[0] + 1;
-    int out_h = (h + padding[1] - size[1]) / stride[1] + 1;
+    int out_w = (w + kernel_padding[0] - size[0]) / stride[0] + 1;
+    int out_h = (h + kernel_padding[1] - size[1]) / stride[1] + 1;
     int out_c = c;
     int outputs = out_w*out_h*out_c;
 
     int i, j, k, m, n;
-    int w_offset = -padding[0] / 2;
-    int h_offset = -padding[1] / 2;
+    int w_offset = -kernel_padding[0] / 2;
+    int h_offset = -kernel_padding[1] / 2;
 
     float* outp = new float[outputs];
     int* indexes = new int[outputs];
@@ -77,7 +95,7 @@ IO* MAXPOOL_LAYER::forward(IO* input)
 
     output->set_value(out_h, out_w, out_c, ty, outp);
 
-    return output;
+    iopool->finish_input(this->layerid);
 }
 
 void MAXPOOL_LAYER::type()

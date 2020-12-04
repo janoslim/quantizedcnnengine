@@ -25,6 +25,7 @@ public:
     float* get_param_fp();
     //dp* get_param_dp();
 
+    void set_size(int size, int type);
     void set_param_i(int* weights);
     void set_param_i8(int8_t* weights);
     void set_param_i16(int16_t* weights);

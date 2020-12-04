@@ -29,12 +29,13 @@ enum class PADDINGTYPE
 
 class Network
 {
-private:
+protected:
 // attributes
 	IOPool* iopool;
 	int id;
 	int output_id;
 	int filters;
+	Tinfo Dtype;
 	std::vector<int> input_id;
 	std::vector<int> pool_size;
 	std::vector<int> stride;
@@ -46,14 +47,14 @@ private:
 	PADDINGTYPE padding;
 	std::vector<int> shape;
 	int units;
-
 	void check_input();
 public:
 	Network(IOPool* iopool);
-	~Network();
+	virtual ~Network();
 	void forward();
 	void wait_thread();
 	void setId(int id);
+	void setDType(Tinfo);
 	void setInputId(std::vector<int>& id_vec);
 	void setOutputId(int id);
 	void add_network(Network* network);
@@ -68,5 +69,8 @@ public:
 	void setPadding(PADDINGTYPE);
 	int getID();
 	IOPool* getIOPool();
+	void setIOPool(IOPool*);
+	// This function setup after makeObject()
+	virtual void setupLayer();
 };
 #endif

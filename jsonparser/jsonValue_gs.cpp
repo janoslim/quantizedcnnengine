@@ -35,9 +35,9 @@ std::vector<JsonValue*>* JsonArray::getValue()
     return &(this->member_vector);
 }
 
-JsonBoolean* JsonBoolean::getValue()
+bool JsonBoolean::getValue()
 {
-    
+    return this->val;
 }
 
 int JsonNumber::getValue()

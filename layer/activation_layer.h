@@ -39,12 +39,14 @@ private:
     Ainfo atype;
 
 public:
-    ACTIVATION_LAYER(int lid, int iid, int type);
+    ACTIVATION_LAYER(IOPool*);
+    ACTIVATION_LAYER(IOPool*, int lid, int iid, int type);
     ~ACTIVATION_LAYER();
     void make(int atype);
-    IO* forward(IO* input);
+    void forward();
     void type();
     void quant();
+    void setupLayer();
 };
 
 float activate(float x, Ainfo a);

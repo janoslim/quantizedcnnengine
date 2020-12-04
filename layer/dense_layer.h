@@ -19,12 +19,14 @@ class DENSE_LAYER : public ILayer
     int n;
 
 public:
-    DENSE_LAYER(int lid, int iid, int type, int wsize, int bsize);
+    DENSE_LAYER(IOPool*);
+    DENSE_LAYER(IOPool*, int lid, int iid, int type, int wsize, int bsize);
     ~DENSE_LAYER();
-    void make(int n, void* weights, void* bias);
-    IO* forward(IO* input);
+    void make(void* weights, void* bias);
+    void forward();
     void type();
     void quant();
+    void setupLayer();
 };
 
 #endif

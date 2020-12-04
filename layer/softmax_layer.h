@@ -16,12 +16,14 @@ private:
     int h,w,c;
 
 public:
-    SOFTMAX_LAYER(int lid, int iid, int type);
+    SOFTMAX_LAYER(IOPool*);
+    SOFTMAX_LAYER(IOPool*, int lid, int iid, int type);
     ~SOFTMAX_LAYER();
-    void make(int* size, int* stride, int* padding);
-    IO* forward(IO* input);
+    void make();
+    void forward();
     void type();
     void quant();    
+    void setupLayer();
 };
 
 void softmax(float *input, int n, float temp, float *output, int stride);

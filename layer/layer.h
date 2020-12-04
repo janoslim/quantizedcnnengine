@@ -3,6 +3,7 @@
 
 #include "../type/io.h"
 #include "../type/param.h"
+#include "../network/network.h"
 
 enum Linfo {
     ACTIVATION,
@@ -12,16 +13,19 @@ enum Linfo {
     SOFTMAX
 };
 
-class ILayer {
+class ILayer : public Network {
 public:
     int layerid;
     Linfo layertype;
     int ioid;
     Tinfo ty;
     
-    virtual IO* forward(IO* input)=0;
+    ILayer(IOPool* iopool);
+    virtual ~ILayer();
+    virtual void forward()=0;
     virtual void type()=0;
     virtual void quant()=0;
+    virtual void setupLayer() = 0;
 };
 
 #endif

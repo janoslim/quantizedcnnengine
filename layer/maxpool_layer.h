@@ -15,17 +15,20 @@ private:
     int h,w,c;
     int* shape;
 
-    int* size;
+    std::vector<int> kernel_padding;
+/*     int* size;
     int* stride;
-    int* padding;
+    int* padding; */
 
 public:
-    MAXPOOL_LAYER(int lid, int iid, int type);
+    MAXPOOL_LAYER(IOPool*);
+    MAXPOOL_LAYER(IOPool*, int lid, int iid, int type);
     ~MAXPOOL_LAYER();
-    void make(int* size, int* stride, int* padding);
-    IO* forward(IO* input);
+    void make();
+    void forward();
     void type();
     void quant();
+    void setupLayer();
 };
 
 #endif

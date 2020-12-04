@@ -117,6 +117,11 @@ IOPool* Network::getIOPool()
 	return this->iopool;
 }
 
+void Network::setIOPool(IOPool* iopool)
+{
+	this->iopool = iopool;
+}
+
 void Network::setPadding(PADDINGTYPE p)
 {
 	this->padding = p;
@@ -125,4 +130,13 @@ void Network::setPadding(PADDINGTYPE p)
 int Network::getID()
 {
 	return this->id;
+}
+
+void Network::setupLayer()
+{
+}
+
+void Network::setDType(Tinfo t)
+{
+	this->Dtype = t;
 }

@@ -36,3 +36,7 @@ void IOPool::add_IO(IO* io_obj)
     }
 }
 
+IO* IOPool::getIO(int id)
+{
+    return io_map[id+1];
+}

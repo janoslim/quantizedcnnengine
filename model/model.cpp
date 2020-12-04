@@ -2,6 +2,11 @@
 #include "../type/iopool.h"
 #include "../jsonparser/jsonParser.h"
 #include "./model.h"
+#include "../layer/activation_layer.h"
+#include "../layer/convolutional_layer.h"
+#include "../layer/dense_layer.h"
+#include "../layer/maxpool_layer.h"
+#include "../layer/softmax_layer.h"
 #include <stdlib.h>
 
 using namespace _json_parser_qt;
@@ -17,15 +22,67 @@ Network* Model::makeObject(JsonParser& jsonParser, IOPool& iopool)
 
 Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
 {   
+    // DTYPE
+    Tinfo Dtype = FLOAT;
+
     std::vector<std::pair<JsonString*, JsonValue*>>& networkAttr = *(networkObject->getValue());
     if(networkAttr.size() == 0)
         return NULL;
  
     JsonString* jsonKey;
     JsonValue* jsonValue;
-    Network* networkObj = new Network(&iopool);
+    Network* networkObj;
+
+    // network의 type을 먼저 확인하고 layer 객체를 만들어야함.
+    for(std::pair<JsonString*, JsonValue*> kvPair : networkAttr)
+    {
+        jsonKey = kvPair.first;
+        jsonValue = kvPair.second;
+        std::string key = jsonKey->getValue();
+        if(key.compare("type") == 0)
+        {
+            JsonString* jsonStr = (JsonString*)jsonValue;
+            std::string typeStr = jsonStr->getValue();
+            
+            if(typeStr.compare("network") == 0) 
+            {
+                networkObj = new Network(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::NETWORK);
+            }
+            /* else if(typeStr.compare("reshape") == 0) 
+            {
+                networkObj = new Network(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::RESHAPE);
+            } */
+            else if(typeStr.compare("conv2d") == 0) 
+            {
+                networkObj = new CONVOLUTIONAL_LAYER(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::CONV2D);
+            }
+            else if(typeStr.compare("max_pooling2d") == 0) 
+            {
+                networkObj = new MAXPOOL_LAYER(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::MAXPOOL2D);
+            }
+            /* else if(typeStr.compare("flatten") == 0) 
+            {
+                networkObj = new Network(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::FLATTEN);
+            } */
+            else if(typeStr.compare("dense") == 0) 
+            {
+                networkObj = new DENSE_LAYER(&iopool);
+                networkObj->setNetworkType(NETWORKTYPE::DENSE);
+            }
+            else
+            {
+                std::cout << "ERROR: Line 60 model.cpp" << std::endl;
+                exit(0);
+            }
+        }
+    }
     
-    // Network안 object의 Attribute을 검사한다
+    // 나머지 Network안 object의 Attribute을 검사한다
     for(std::pair<JsonString*, JsonValue*> kvPair : networkAttr)
     {
         jsonKey = kvPair.first;
@@ -49,29 +106,6 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
                 {
                     std::cout << "SUBNET NULL!";
                 }
-            }
-        }
-        else if(key.compare("type") == 0)
-        {
-            JsonString* jsonStr = (JsonString*)jsonValue;
-            std::string typeStr = jsonStr->getValue();
-
-            if(typeStr.compare("network") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::NETWORK);
-            }else if(typeStr.compare("reshape") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::RESHAPE);
-            }else if(typeStr.compare("conv2d") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::CONV2D);
-            }else if(typeStr.compare("max_pooling2d") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::MAXPOOL2D);
-            }else if(typeStr.compare("flatten") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::FLATTEN);
-            }else if(typeStr.compare("dense") == 0) {
-                networkObj->setNetworkType(NETWORKTYPE::DENSE);
-            }else
-            {
-                std::cout << "ERROR: Line 60 model.cpp" << std::endl;
-                exit(0);
             }
         }
         else if(key.compare("id") == 0)
@@ -175,6 +209,11 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
             exit(0);
         }
     }
+
+    // set layer info
+    networkObj->setDType(Dtype);
+    networkObj->setupLayer();
+
     return networkObj;
 }
 Model::Model()

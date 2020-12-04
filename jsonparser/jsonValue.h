@@ -77,7 +77,7 @@ namespace _json_parser_qt
     public:
         JsonBoolean();
         ~JsonBoolean();
-        JsonBoolean* getValue();
+        bool getValue();
         void setValue(JBOOL);
         void printValue();
     };

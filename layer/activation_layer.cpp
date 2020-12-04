@@ -1,12 +1,26 @@
-#include "activation_layer.h"
+#include "./activation_layer.h"
 
-ACTIVATION_LAYER::ACTIVATION_LAYER(int lid, int iid, int type)
+ACTIVATION_LAYER::ACTIVATION_LAYER(IOPool* ioPool) : ILayer(ioPool)
+{
+}
+
+ACTIVATION_LAYER::ACTIVATION_LAYER(IOPool* ioPool, int lid, int iid, int type) : ILayer(ioPool)
 {
     this->layerid = lid;
     this->layertype = ACTIVATION;
     this->ioid = iid;
     this->ty = (Tinfo)type;
 }
+
+
+void ACTIVATION_LAYER::setupLayer()
+{
+    this->layerid = this->id;
+    this->layertype = ACTIVATION;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
+}
+
 
 ACTIVATION_LAYER::~ACTIVATION_LAYER()
 {
@@ -18,9 +32,10 @@ void ACTIVATION_LAYER::make(int atype)
     this->atype = (Ainfo)atype;
 }
 
-IO* ACTIVATION_LAYER::forward(IO* input)
+void ACTIVATION_LAYER::forward()
 {
-    IO* output = new IO(input->get_ID()+1);
+    IO* input = iopool->getIO(this->ioid);
+    IO* output = iopool->getIO(this->layerid);
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -31,6 +46,9 @@ IO* ACTIVATION_LAYER::forward(IO* input)
     activate_array_cpu_custom(outp, h*w*c, this->atype);
     
     output->set_value(h, w, c, ty, outp);
+
+    iopool->finish_input(this->layerid);
+
 }
 
 void ACTIVATION_LAYER::type()
@@ -76,6 +94,8 @@ float activate(float x, Ainfo a)
             return hardtan_activate(x);
         case LHTAN:
             return lhtan_activate(x);
+        default:
+            std::cout << "No Activation type error!" << std::endl;
     }
     return 0;
 }
@@ -204,3 +224,4 @@ void gradient_array_mish(const int n, const float * activation_input, float * de
         //delta[i] *= derivative;
     }
 }
+

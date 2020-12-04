@@ -2,8 +2,18 @@
 
 PARAM::PARAM(int type, int size)
 {
+    this->set_size(type, size);
+}
+
+//
+void PARAM::set_size(int size, int type = 3)
+{
+    
     this->type = type;
     switch (type) {
+        case -1:
+        // do nothing
+            break;
         case 0:
             this->param_i = new int[size];
             break;
@@ -21,6 +31,7 @@ PARAM::PARAM(int type, int size)
         //     break;
     }
 }
+
 
 PARAM::~PARAM()
 {
@@ -82,3 +93,4 @@ void PARAM::set_param_fp(float* weights) {
 // void PARAM::set_param_dp(dp* weights) {
 //     this->param_dp = weights;
 // }
+

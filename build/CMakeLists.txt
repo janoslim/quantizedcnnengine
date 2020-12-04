@@ -34,6 +34,7 @@ set(SOURCE ${MAIN_DIR}/main.cpp
         ${LAYER_DIR}/gemm.cpp
         ${LAYER_DIR}/maxpool_layer.cpp
         ${LAYER_DIR}/softmax_layer.cpp
+        ${LAYER_DIR}/layer.cpp
         )
 
 # 변수 OUTPUT 설정

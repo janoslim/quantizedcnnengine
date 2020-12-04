@@ -17,6 +17,20 @@ using namespace _json_parser_qt;
 
 int main()
 {
+	JsonParser* jsonParser = new JsonParser();
+	jsonParser->readJsonFile("./networkModel.json");
+	//jsonParser->printResult();
+	
+	IOPool* iopool = new IOPool();
+	Model mainModel;
+	
+	mainModel.makeObject(*jsonParser, *iopool);
+	iopool->finish_input(-1);
+	mainModel.geRootNetwork()->forward();
+
+
+
+/* 	// 신혃씨 코드
 	IOPool* iopool = new IOPool();
 
 
@@ -134,7 +148,7 @@ int main()
 	layers[3] = (ILayer *)dense;
 
 	IO* output3 = layers[3]->forward(output2);
-	output3->print_io();
+	output3->print_io(); */
 
 	// ACTIVATION_LAYER* actv2 = new ACTIVATION_LAYER(5,4,3);
 	// actv2->make(0);

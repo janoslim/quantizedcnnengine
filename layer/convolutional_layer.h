@@ -3,6 +3,7 @@
 
 #include "layer.h"
 #include "gemm.h"
+#include "../network/network.h"
 
 class CONVOLUTIONAL_LAYER : public ILayer
 {
@@ -16,20 +17,22 @@ private:
     PARAM paramB;
 
     int h,w,c;
-    int* shape;
+    /* std::vector<int>& shape; */
 
-    int n;
-    int* size;
-    int* stride;
-    int* padding;
+    int n; // filter
+    /* std::vector<int>& size;
+    std::vector<int>& stride; */
+    std::vector<int> kernel_padding;
 
 public:
-    CONVOLUTIONAL_LAYER(int lid, int iid, int type, int wsize, int bsize);
+    CONVOLUTIONAL_LAYER(IOPool*);
+    CONVOLUTIONAL_LAYER(IOPool*, int lid, int iid, int Dtype, int wsize, int bsize);
     ~CONVOLUTIONAL_LAYER();
-    void make(int n, int* size, int* stride, int* padding, void* weights, void* bias);
-    IO* forward(IO* input);
+    void make(void* weights, void* bias);
+    void forward();
     void type();
     void quant();
+    void setupLayer();
 };
 
 #endif

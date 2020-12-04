@@ -1,6 +1,10 @@
 #include "softmax_layer.h"
 
-SOFTMAX_LAYER::SOFTMAX_LAYER(int lid, int iid, int type)
+SOFTMAX_LAYER::SOFTMAX_LAYER(IOPool* iopool) : ILayer(iopool)
+{
+}
+
+SOFTMAX_LAYER::SOFTMAX_LAYER(IOPool* iopool, int lid, int iid, int type) : ILayer(iopool)
 {
     this->layerid = lid;
     this->layertype = SOFTMAX;
@@ -8,17 +12,27 @@ SOFTMAX_LAYER::SOFTMAX_LAYER(int lid, int iid, int type)
     this->ty = (Tinfo)type;
 }
 
+void SOFTMAX_LAYER::setupLayer()
+{
+    this->layerid = this->id;
+    this->layertype = SOFTMAX;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
+}
+
 SOFTMAX_LAYER::~SOFTMAX_LAYER()
 {
 }
 
-void SOFTMAX_LAYER::make(int* size, int* stride, int* padding)
+void SOFTMAX_LAYER::make()
 {
 }
 
-IO* SOFTMAX_LAYER::forward(IO* input)
+void SOFTMAX_LAYER::forward()
 {
-    IO* output = new IO(input->get_ID()+1);
+    IO* input = this->iopool->getIO(this->ioid);
+    IO* output = this->iopool->getIO(this->layerid);
+
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -32,6 +46,8 @@ IO* SOFTMAX_LAYER::forward(IO* input)
     softmax(inp, inputs, 1, outp, 1);
 
     output->set_value(h, w, c, ty, outp);
+
+    iopool->finish_input(this->layerid);
 }
 
 void SOFTMAX_LAYER::type()
