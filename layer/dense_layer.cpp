@@ -66,6 +66,8 @@ void DENSE_LAYER::make()
 
 void DENSE_LAYER::forward()
 {
+    std::cout << "dense forward" << std::endl;
+
     this->preset_forward();
 
     IO* input = this->iopool->getIO(this->ioid);

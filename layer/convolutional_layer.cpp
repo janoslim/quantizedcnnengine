@@ -72,6 +72,8 @@ void CONVOLUTIONAL_LAYER::make()
 
 void CONVOLUTIONAL_LAYER::forward()
 {
+    std::cout << "conv forward" << std::endl;
+    
     this->preset_forward();
 	
     // run model

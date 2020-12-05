@@ -149,9 +149,8 @@ void Network::setMyThead(std::thread* t)
 void Network::preset_forward()
 {
 	this->check_input();
-    std::cout << " running network " << this->id << "." << static_cast<std::underlying_type<NETWORKTYPE>::type>(this->network_type) << std::endl;
-
-    // run child
+    
+	// run child
     for(Network* net : this->child_networks)
 	{
 		net->setMyThead(new std::thread(&Network::forward, net));

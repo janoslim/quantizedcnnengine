@@ -41,6 +41,8 @@ void MAXPOOL_LAYER::make()
 
 void MAXPOOL_LAYER::forward()
 {
+    std::cout << "maxpool forward" << std::endl;
+
     this->preset_forward();
 
     IO* input = this->iopool->getIO(this->ioid);

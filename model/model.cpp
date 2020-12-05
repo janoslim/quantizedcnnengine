@@ -198,7 +198,7 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
         }
         else if(key.compare("padding") == 0)
         {
-            JsonString* jsonStr = (JsonString*)jsonValue;
+            JsonString* jsonStr = dynamic_cast<JsonString*>(jsonValue);
             std::string paddingStr = jsonStr->getValue();
 
             if(paddingStr.compare("valid") == 0) {

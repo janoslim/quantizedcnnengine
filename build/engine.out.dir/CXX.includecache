@@ -58,6 +58,10 @@ gemm.h
 ../network/network.h
 /home/janoslim/quantizedcnnengine/network/network.h
 
+/home/janoslim/quantizedcnnengine/layer/maxpool_layer.cpp
+maxpool_layer.h
+/home/janoslim/quantizedcnnengine/layer/maxpool_layer.h
+
 /home/janoslim/quantizedcnnengine/layer/maxpool_layer.h
 layer.h
 /home/janoslim/quantizedcnnengine/layer/layer.h
