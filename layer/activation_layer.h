@@ -8,24 +8,6 @@
 #define max_val_cmp(a,b) (((a) > (b)) ? (a) : (b))
 #define min_val_cmp(a,b) (((a) < (b)) ? (a) : (b))
 
-enum Ainfo {
-    LINEAR,
-    LOGISTIC,
-    LOGGY,
-    RELU,
-    RELU6,
-    ELU,
-    SELU,
-    GELU,
-    RELIE,
-    RAMP,
-    LEAKY,
-    TANH,
-    PLSE,
-    STAIR,
-    HARDTAN,
-    LHTAN,
-};
 
 class ACTIVATION_LAYER : public ILayer
 {
@@ -40,13 +22,11 @@ private:
 
 public:
     ACTIVATION_LAYER(IOPool*);
-    ACTIVATION_LAYER(IOPool*, int lid, int iid, int type);
     ~ACTIVATION_LAYER();
-    void make(int atype);
+    void setupLayer();
     void forward();
     void type();
     void quant();
-    void setupLayer();
 };
 
 float activate(float x, Ainfo a);
@@ -112,7 +92,7 @@ static inline float hardtan_gradient(float x)
     if (x > -1 && x < 1) return 1;
     return 0;
 }
-static inline float linear_gradient(float x){return 1;}
+static inline float linear_gradient(){return 1;}
 static inline float logistic_gradient(float x){return (1-x)*x;}
 static inline float loggy_gradient(float x)
 {

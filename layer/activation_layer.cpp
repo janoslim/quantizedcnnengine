@@ -4,40 +4,29 @@ ACTIVATION_LAYER::ACTIVATION_LAYER(IOPool* ioPool) : ILayer(ioPool)
 {
 }
 
-ACTIVATION_LAYER::ACTIVATION_LAYER(IOPool* ioPool, int lid, int iid, int type) : ILayer(ioPool)
-{
-    this->layerid = lid;
-    this->layertype = ACTIVATION;
-    this->ioid = iid;
-    this->ty = (Tinfo)type;
-}
-
-
-void ACTIVATION_LAYER::setupLayer()
-{
-    this->layerid = this->id;
-    this->layertype = ACTIVATION;
-    this->ioid = this->input_id[0];
-    this->ty = this->Dtype;
-}
-
-
 ACTIVATION_LAYER::~ACTIVATION_LAYER()
 {
 
 }
 
-void ACTIVATION_LAYER::make(int atype)
+void ACTIVATION_LAYER::setupLayer()
 {
-    this->atype = (Ainfo)atype;
+    this->layerid = this->net_id;
+    this->layertype = ACTIVATION;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
+    this->atype = this->act_type;
 }
 
 void ACTIVATION_LAYER::forward()
 {
+    std::cout << "activation forward" << std::endl;
+
     this->preset_forward();
 
     IO* input = iopool->getIO(this->ioid);
     IO* output = iopool->getIO(this->layerid);
+    
     this->h = input->get_h();
     this->w = input->get_w();
     this->c = input->get_c();
@@ -152,7 +141,7 @@ float gradient(float x, Ainfo a)
 {
     switch(a){
         case LINEAR:
-            return linear_gradient(x);
+            return linear_gradient();
         case LOGISTIC:
             return logistic_gradient(x);
         case LOGGY:

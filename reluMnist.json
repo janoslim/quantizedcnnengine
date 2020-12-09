@@ -1,0 +1,92 @@
+{
+ "network": {
+  "type": "network",
+  "id": 4,
+  "input": [
+   -1
+  ],
+  "output": 4,
+  "shape": [
+   28,
+   28
+  ],
+  "subnet": [
+   {
+    "network": {
+     "type": "Conv2D",
+     "id": 0,
+     "input": [
+      -1
+     ],
+     "output": 0,
+     "shape": [
+      28,
+      28,
+      1
+     ],
+     "subnet": [],
+     "actType": "relu"
+    }
+   },
+   {
+    "network": {
+     "type": "Activation",
+     "id": 1,
+     "input": [
+      0
+     ],
+     "output": 1,
+     "shape": [
+      27,
+      27,
+      5
+     ],
+     "subnet": [],
+     "actType": "relu"
+    }
+   },
+   {
+    "network": {
+     "type": "MaxPooling2D",
+     "id": 2,
+     "input": [
+      1
+     ],
+     "output": 2,
+     "shape": [
+      27,
+      27,
+      5
+     ],
+     "subnet": []
+    }
+   },
+   {
+    "network": {
+     "type": "Dense",
+     "id": 3,
+     "input": [
+      2
+     ],
+     "output": 3,
+     "shape": [
+      845
+     ],
+     "subnet": []
+    }
+   }
+  ],
+  "label": [
+   "0",
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9"
+  ]
+ }
+}

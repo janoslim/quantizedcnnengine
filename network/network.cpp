@@ -29,7 +29,7 @@ void Network::forward()
 	}
 
 	//std::this_thread::sleep_for (std::chrono::seconds(2));
-	this->iopool->finish_input(this->id);
+	this->iopool->finish_input(this->output_id);
 }
 
 void Network::check_input()
@@ -48,11 +48,11 @@ void Network::add_network(Network* network)
 	this->child_networks.push_back(network);
 }
 
-void Network::setNetworkType(NETWORKTYPE t)
+void Network::setNetworkType(Ninfo t)
 {
 	this->network_type = t;
 }
-void Network::setActType(ACTTYPE at)
+void Network::setActType(Ainfo at)
 {
 	this->act_type = at;
 }
@@ -70,8 +70,9 @@ void Network::setUnits(int unit)
 
 void Network::setId(int id)
 {
-	this->id = id;
+	this->net_id = id;
 }
+
 void Network::setInputId(std::vector<int>& id_vec)
 {
 	for(int& i : id_vec)
@@ -79,6 +80,7 @@ void Network::setInputId(std::vector<int>& id_vec)
 		this->input_id.push_back(i);
 	}
 }
+
 void Network::setOutputId(int id)
 {
 	this->output_id = id;
@@ -122,14 +124,17 @@ void Network::setIOPool(IOPool* iopool)
 	this->iopool = iopool;
 }
 
-void Network::setPadding(PADDINGTYPE p)
+void Network::setPadding(std::vector<int>& padding_vec)
 {
-	this->padding = p;
+	for(int& i : padding_vec)
+	{
+		this->padding.push_back(i);
+	}
 }
 
 int Network::getID()
 {
-	return this->id;
+	return this->net_id;
 }
 
 void Network::setupLayer()
@@ -157,7 +162,7 @@ void Network::preset_forward()
 	}
 }
 
-NETWORKTYPE Network::getNetworkType()
+Ninfo Network::getNetworkType()
 {
 	return this->network_type;
 }

@@ -4,28 +4,16 @@ SOFTMAX_LAYER::SOFTMAX_LAYER(IOPool* iopool) : ILayer(iopool)
 {
 }
 
-SOFTMAX_LAYER::SOFTMAX_LAYER(IOPool* iopool, int lid, int iid, int type) : ILayer(iopool)
-{
-    this->layerid = lid;
-    this->layertype = SOFTMAX;
-    this->ioid = iid;
-    this->ty = (Tinfo)type;
-}
-
-void SOFTMAX_LAYER::setupLayer()
-{
-    this->layerid = this->id;
-    this->layertype = SOFTMAX;
-    this->ioid = this->input_id[0];
-    this->ty = this->Dtype;
-}
-
 SOFTMAX_LAYER::~SOFTMAX_LAYER()
 {
 }
 
-void SOFTMAX_LAYER::make()
+void SOFTMAX_LAYER::setupLayer()
 {
+    this->layerid = this->net_id;
+    this->layertype = SOFTMAX;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
 }
 
 void SOFTMAX_LAYER::forward()

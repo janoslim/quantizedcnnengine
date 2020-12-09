@@ -15,37 +15,47 @@
 
 using namespace _json_parser_qt;
 
-int main()
+int main(int argc, char **argv)
 {
+	if (argc<3) 
+	{
+		fprintf(stderr, "usage: %s [modelpath] [weightpath] [inputpath]", argv[0]);
+		return 0;
+	}
+	char *model = argv[1];
+	std::string weight = argv[2];
+	char *input = argv[3];
+
 	JsonParser* jsonParser = new JsonParser();
-	jsonParser->readJsonFile("./networkModel.json");
+	jsonParser->readJsonFile(model);
 	//jsonParser->printResult();
-	
+
+
 	IOPool* iopool = new IOPool();
 	Model mainModel;
-	// set weight path
-	std::string weightPath = "./data/weightsFloat.weights";
-	mainModel.setWeightPath(weightPath);
 
-	std::cout << "Weight set done." << std::endl;
 	// prepare model
 	mainModel.makeObject(*jsonParser, *iopool);
-
 	std::cout << "makeObject set done." << std::endl;
+
+	// set weight path
+	mainModel.setWeightPath(weight);
+	std::cout << "Weight set done." << std::endl;
+
 	// setup input file
-	FILE* input_file = fopen("./data/input2.bin", "rb");
+	FILE* input_file = fopen(input, "rb");
 	float* inp = new float[28*28];
 	fread(inp, 28*28, sizeof(float), input_file);
+
 	iopool->getIO(-1)->set_value(28, 28, 1, 3, inp);
 	iopool->finish_input(-1);
 	// run model
+
+
 	mainModel.geRootNetwork()->forward();
 
-
-/* 	// 신혃씨 코드
+/* 	// Layer 예시 코드
 	IOPool* iopool = new IOPool();
-
-
 
 
 	FILE* inpfi = fopen("./data/input2.bin", "rb");
@@ -95,7 +105,7 @@ int main()
 	fprintf(stderr, "\n\n\n");
 
 	CONVOLUTIONAL_LAYER* conv = new CONVOLUTIONAL_LAYER(1, 0, 3, weightC, biasC);
-	conv->make(filter, size, stride, padding, weight, bias);
+	conv->setupLayer(filter, size, stride, padding, weight, bias);
 	layers[0] = (ILayer *)conv;
 
 	IO* output = layers[0]->forward(input);
@@ -106,7 +116,7 @@ int main()
 
 
 	ACTIVATION_LAYER* actv1 = new ACTIVATION_LAYER(2, 1, 3);
-	actv1->make(3);
+	actv1->setupLayer(3);
 	layers[1] = (ILayer *)actv1;
 	
 	IO* output1 = layers[1]->forward(output);
@@ -123,7 +133,7 @@ int main()
 	stride[1] = 2;
 	padding[0] = 0;
 	padding[1] = 0;
-	maxp->make(size, stride, padding);
+	maxp->setupLayer(size, stride, padding);
 	layers[2] = (ILayer *)maxp;
 
 	IO* output2 = layers[2]->forward(output1);
@@ -155,14 +165,14 @@ int main()
 	fprintf(stderr, "\n\n\n");
 	
 	DENSE_LAYER* dense = new DENSE_LAYER(4, 3, 3, shape*n, n);
-	dense->make(10, weight, bias);
+	dense->setupLayer(10, weight, bias);
 	layers[3] = (ILayer *)dense;
 
 	IO* output3 = layers[3]->forward(output2);
 	output3->print_io(); */
 
 	// ACTIVATION_LAYER* actv2 = new ACTIVATION_LAYER(5,4,3);
-	// actv2->make(0);
+	// actv2->setupLayer(0);
 	// layers[4] = (ILayer *)actv2;
 
 	// for(int i=0; i<5; i++) {

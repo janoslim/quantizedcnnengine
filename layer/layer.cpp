@@ -8,8 +8,3 @@ ILayer::~ILayer()
 {
 
 }
-
-void ILayer::setupLayer()
-{
-
-}

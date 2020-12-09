@@ -16,19 +16,14 @@ private:
     int* shape;
 
     std::vector<int> kernel_padding;
-/*     int* size;
-    int* stride;
-    int* padding; */
 
 public:
     MAXPOOL_LAYER(IOPool*);
-    MAXPOOL_LAYER(IOPool*, int lid, int iid, int type);
     ~MAXPOOL_LAYER();
-    void make();
+    void setupLayer();
     void forward();
     void type();
     void quant();
-    void setupLayer();
 };
 
 #endif

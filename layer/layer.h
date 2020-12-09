@@ -13,20 +13,15 @@ enum Linfo {
     SOFTMAX
 };
 
-class ILayer : public Network {
+class ILayer : public Network 
+{
 public:
-    int layerid;
-    Linfo layertype;
-    int ioid;
-    Tinfo ty;
-    
     ILayer(IOPool* iopool);
     virtual ~ILayer();
+    virtual void setupLayer()=0;
     virtual void forward()=0;
     virtual void type()=0;
     virtual void quant()=0;
-    virtual void setupLayer() = 0;
-    virtual void make(){};
 };
 
 #endif

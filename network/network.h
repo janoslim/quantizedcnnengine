@@ -6,7 +6,7 @@
 #include <vector>
 #include <thread>
 
-enum class NETWORKTYPE
+enum class Ninfo
 {
 	NETWORK,
 	RESHAPE,
@@ -16,15 +16,23 @@ enum class NETWORKTYPE
 	DENSE
 };
 
-enum class ACTTYPE
-{
-	LINEAR,
-	RELU
-};
-
-enum class PADDINGTYPE
-{
-	VALID
+enum Ainfo {
+    LINEAR,
+    LOGISTIC,
+    LOGGY,
+    RELU,
+    RELU6,
+    ELU,
+    SELU,
+    GELU,
+    RELIE,
+    RAMP,
+    LEAKY,
+    TANH,
+    PLSE,
+    STAIR,
+    HARDTAN,
+    LHTAN,
 };
 
 class Network
@@ -32,55 +40,69 @@ class Network
 protected:
 // attributes
 	IOPool* iopool;
-	int id;
-	int output_id;
-	int filters;
-	Tinfo Dtype;
+
+	int net_id;
 	std::vector<int> input_id;
+	int output_id;
+	std::vector<int> shape;
+	Tinfo Dtype;
+
+	int filters;
+	int units;
+	std::vector<int> size;
 	std::vector<int> pool_size;
 	std::vector<int> stride;
-	std::vector<int> size;
+	std::vector<int> padding;
+
 	std::thread* my_thread;
 	std::vector<Network*> child_networks;
-	NETWORKTYPE network_type;
-	ACTTYPE act_type;
-	PADDINGTYPE padding;
-	std::vector<int> shape;
-	int units;
+
+	Ninfo network_type;
+	Ainfo act_type;
+	
 	void check_input();
+
 public:
 	Network(IOPool* iopool);
 	virtual ~Network();
-	virtual void forward();
-	void wait_thread();
+
+	void setIOPool(IOPool*);
 	void setId(int id);
 	void setDType(Tinfo);
 	void setInputId(std::vector<int>& id_vec);
 	void setOutputId(int id);
-	void add_network(Network* network);
-	void setNetworkType(NETWORKTYPE);
-	void setActType(ACTTYPE);
 	void setShape(std::vector<int>&);
+
+	void setNetworkType(Ninfo);
+	void setActType(Ainfo);
+
+	void add_network(Network* network);
+
 	void setUnits(int);
+	void setFilter(int);
+	void setSize(std::vector<int>&);
 	void setPoolSize(std::vector<int>&);
 	void setStride(std::vector<int>&);
-	void setSize(std::vector<int>&);
-	void setFilter(int);
-	void setPadding(PADDINGTYPE);
-	int getID();
-	NETWORKTYPE getNetworkType();
-	IOPool* getIOPool();
-	void setIOPool(IOPool*);
+	void setPadding(std::vector<int>&);
+
 	void setMyThead(std::thread*);
-	void preset_forward();
-	std::vector<int>& getPoolSizeVec();
-	std::vector<int>& getStrideVec();
-	std::vector<int>& getSizeVec();
-	std::vector<int>& getShapeVec();
+	void wait_thread();
+
+
+	int getID();
+	Ninfo getNetworkType();
+	IOPool* getIOPool();
 	int getUnits();
 	int getFilters();
+	std::vector<int>& getShapeVec();
+	std::vector<int>& getSizeVec();
+	std::vector<int>& getPoolSizeVec();
+	std::vector<int>& getStrideVec();
+
+
+	void preset_forward();
+	virtual void forward();
 	// This function setup after makeObject()
 	virtual void setupLayer();
-	virtual void make(){};
 };
 #endif

@@ -53,33 +53,33 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
             if(typeStr.compare("network") == 0) 
             {
                 networkObj = new Network(&iopool);
-                networkObj->setNetworkType(NETWORKTYPE::NETWORK);
+                networkObj->setNetworkType(Ninfo::NETWORK);
             }
             /* else if(typeStr.compare("reshape") == 0) 
             {
                 networkObj = new Network(&iopool);
-                networkObj->setNetworkType(NETWORKTYPE::RESHAPE);
+                networkObj->setNetworkType(Ninfo::RESHAPE);
             } */
-            else if(typeStr.compare("conv2d") == 0) 
+            else if(typeStr.compare("Conv2D") == 0) 
             {
                 CONVOLUTIONAL_LAYER* conv2dObj = new CONVOLUTIONAL_LAYER(&iopool);
                 networkObj = dynamic_cast<Network*>(conv2dObj);
-                networkObj->setNetworkType(NETWORKTYPE::CONV2D);
+                networkObj->setNetworkType(Ninfo::CONV2D);
             }
-            else if(typeStr.compare("max_pooling2d") == 0) 
+            else if(typeStr.compare("MaxPooling2D") == 0) 
             {
                 networkObj = new MAXPOOL_LAYER(&iopool);
-                networkObj->setNetworkType(NETWORKTYPE::MAXPOOL2D);
+                networkObj->setNetworkType(Ninfo::MAXPOOL2D);
             }
             /* else if(typeStr.compare("flatten") == 0) 
             {
                 networkObj = new Network(&iopool);
-                networkObj->setNetworkType(NETWORKTYPE::FLATTEN);
+                networkObj->setNetworkType(Ninfo::FLATTEN);
             } */
             else if(typeStr.compare("dense") == 0) 
             {
                 networkObj = new DENSE_LAYER(&iopool);
-                networkObj->setNetworkType(NETWORKTYPE::DENSE);
+                networkObj->setNetworkType(Ninfo::DENSE);
             }
             else
             {
@@ -119,6 +119,10 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
         {
             JsonNumber* jsonId = dynamic_cast<JsonNumber*>(jsonValue);
             networkObj->setId(jsonId->getValue());
+        }
+        else if(key.compare("output") == 0)
+        {
+            JsonNumber* jsonId = dynamic_cast<JsonNumber*>(jsonValue);
             networkObj->setOutputId(jsonId->getValue());
         }
         else if(key.compare("units") == 0)
@@ -136,15 +140,15 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
             }
             networkObj->setShape(shapeVec);
         }
-        else if(key.compare("act_type") == 0)
+        else if(key.compare("actType") == 0)
         {
             JsonString* jsonStr = dynamic_cast<JsonString*>(jsonValue);
             std::string acttypeStr = jsonStr->getValue();
 
             if(acttypeStr.compare("relu") == 0) {
-                networkObj->setActType(ACTTYPE::RELU);
+                networkObj->setActType(Ainfo::RELU);
             }else if(acttypeStr.compare("linear") == 0) {
-                networkObj->setActType(ACTTYPE::LINEAR);
+                networkObj->setActType(Ainfo::LINEAR);
             }else
             {
                 std::cout << "ERROR: Line 91 model.cpp" << std::endl;
@@ -200,9 +204,14 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
         {
             JsonString* jsonStr = dynamic_cast<JsonString*>(jsonValue);
             std::string paddingStr = jsonStr->getValue();
+            std::vector<int> paddingVec;
 
             if(paddingStr.compare("valid") == 0) {
-                networkObj->setPadding(PADDINGTYPE::VALID);
+                paddingVec.push_back(0);
+                paddingVec.push_back(0);
+                networkObj->setPadding(paddingVec);
+            }else if(paddingStr.compare("same") == 0) {
+                //padding value for same output size with input
             }else
             {
                 std::cout << "ERROR: Line 139 model.cpp" << std::endl;
@@ -262,7 +271,7 @@ void Model::distributeWBParameters()
         
         switch (networkObj->getNetworkType())
         {
-        case NETWORKTYPE::CONV2D:
+        case Ninfo::CONV2D:
             {
                 CONVOLUTIONAL_LAYER* convObj = dynamic_cast<CONVOLUTIONAL_LAYER*>(networkObj);
                 std::vector<int>& size = convObj->getSizeVec();
@@ -273,10 +282,10 @@ void Model::distributeWBParameters()
                 convObj->biasFptr = new float[biasC];
                 wbParamFile.read(reinterpret_cast<char*>(convObj->weightFptr), weightC*sizeof(float));
                 wbParamFile.read(reinterpret_cast<char*>(convObj->biasFptr), biasC*sizeof(float));
-                convObj->make();
+                convObj->setupLayer();
             }
             break;
-        case NETWORKTYPE::DENSE:
+        case Ninfo::DENSE:
             {
                 DENSE_LAYER* denseObj = dynamic_cast<DENSE_LAYER*>(networkObj);
                 int weightShape = denseObj->getShapeVec()[0] * denseObj->getUnits();
@@ -285,13 +294,13 @@ void Model::distributeWBParameters()
                 denseObj->biasFptr = new float[biasShape];
                 wbParamFile.read(reinterpret_cast<char*>(denseObj->weightFptr), weightShape*sizeof(float));
                 wbParamFile.read(reinterpret_cast<char*>(denseObj->biasFptr), biasShape*sizeof(float));
-                denseObj->make();
+                denseObj->setupLayer();
             }
             break;
-        case NETWORKTYPE::MAXPOOL2D:
+        case Ninfo::MAXPOOL2D:
             {
                 MAXPOOL_LAYER* maxpoolObj = dynamic_cast<MAXPOOL_LAYER*>(networkObj);
-                maxpoolObj->make();
+                maxpoolObj->setupLayer();
             }
             break;
         default:

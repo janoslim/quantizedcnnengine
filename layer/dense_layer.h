@@ -28,13 +28,11 @@ public:
     int16_t* weightI16ptr;
     int16_t* biasI16ptr;
     DENSE_LAYER(IOPool*);
-    DENSE_LAYER(IOPool*, int lid, int iid, int type, int wsize, int bsize);
     ~DENSE_LAYER();
-    void make();
+    void setupLayer();
     void forward();
     void type();
     void quant();
-    void setupLayer();
 };
 
 #endif

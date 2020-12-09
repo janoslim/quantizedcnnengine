@@ -1,0 +1,26 @@
+{
+ "labels": [
+  "T-shirt/top",
+  "Trouser",
+  "Pullover",
+  "Dress",
+  "Coat",
+  "Sandal",
+  "Shirt",
+  "Sneaker",
+  "Bag",
+  "Ankle boot"
+ ],
+ "values": [
+  9,
+  2,
+  1,
+  1,
+  6,
+  1,
+  4,
+  6,
+  5,
+  7
+ ]
+}

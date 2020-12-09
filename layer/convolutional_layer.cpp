@@ -4,17 +4,15 @@ CONVOLUTIONAL_LAYER::CONVOLUTIONAL_LAYER(IOPool* iopool) : ILayer(iopool), param
 {
 }
 
-CONVOLUTIONAL_LAYER::CONVOLUTIONAL_LAYER(IOPool* iopool, int lid, int iid, int Dtype, int wsize, int bsize) : ILayer(iopool), paramW(Dtype, wsize), paramB(Dtype, bsize)
+
+CONVOLUTIONAL_LAYER::~CONVOLUTIONAL_LAYER()
 {
-    this->layerid = lid;
-    this->layertype = CONVOLUTION;
-    this->ioid = iid;
-    this->ty = (Tinfo)Dtype;
 }
 
 void CONVOLUTIONAL_LAYER::setupLayer()
 {
-    this->layerid = this->id;
+    
+    this->layerid = this->net_id;
     this->layertype = CONVOLUTION;
     this->ioid = this->input_id[0];
     this->ty = this->Dtype;
@@ -23,27 +21,14 @@ void CONVOLUTIONAL_LAYER::setupLayer()
     this->kernel_padding.push_back(0);
     this->kernel_padding.push_back(0);
     // set param size
+    fprintf(stderr, "여기까진 되잖아\n");
+    fprintf(stderr, "%d %d %d %d\n", ty, size[0], size[1], filters);
+    fprintf(stderr, "여기까진 되잖아\n");
     this->paramW.set_size(this->ty, this->size[0]* this->size[1] * this->filters);
+    fprintf(stderr, "여기까진 되잖아\n");
     this->paramB.set_size(this->ty, this->filters);
     
-}
-
-CONVOLUTIONAL_LAYER::~CONVOLUTIONAL_LAYER()
-{
-    /* delete this->size;
-    delete this->shape;
-    delete this->stride;
-    delete this->padding; */
-}
-
-void CONVOLUTIONAL_LAYER::make()
-{
-    /* this->n = n; >>  this->filters;
-    this->size = size;  >> this->size;
-    this->stride = stride; >> this->stride;
-    this->padding = padding; >> this->kernel_padding*/
-    this->n = this->filters;   
-    
+    fprintf(stderr, "여기까진 되잖아\n");
     switch (this->ty)
     {
         case INT:
@@ -68,6 +53,7 @@ void CONVOLUTIONAL_LAYER::make()
         //     this->paramW.set_param_dp((int *)weights);
         //     this->paramB.set_param_dp((int *)bias);
     }
+    fprintf(stderr, "이게문제야?\n");
 }
 
 void CONVOLUTIONAL_LAYER::forward()

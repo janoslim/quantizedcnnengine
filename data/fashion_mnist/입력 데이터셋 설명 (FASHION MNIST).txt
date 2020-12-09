@@ -1,0 +1,5 @@
+0. 각 bin파일은 fashion mnist 데이터셋의 테스트용 데이터 
+1. 한 장의 사진이 바이너리로 저장됨
+2. label.json의 "labels"에는 각 "순서"가 실제 어떤 라벨을 나타내는지 표기됨, 순서는 0부터 시작, fashion mnist에서 라벨은 "옷의 종류"를 의미
+3. label.json의 "values"는 각 바이너리파일이 몇 번째 "순서"의 label을 가지는지 표기됨
+4. 예시 -> fmnist0.bin -> 9번 values(순서)를 갖는다. -> label에서 9번 순서는 Ankle boot를 의미 

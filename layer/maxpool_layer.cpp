@@ -4,37 +4,17 @@ MAXPOOL_LAYER::MAXPOOL_LAYER(IOPool* iopool) : ILayer(iopool)
 {
 }
 
-MAXPOOL_LAYER::MAXPOOL_LAYER(IOPool* iopool, int lid, int iid, int type) : ILayer(iopool)
+MAXPOOL_LAYER::~MAXPOOL_LAYER()
 {
-    this->layerid = lid;
-    this->layertype = MAXPOOL;
-    this->ioid = iid;
-    this->ty = (Tinfo)type;
 }
-
 
 void MAXPOOL_LAYER::setupLayer()
 {
-    this->layerid = this->id;
+    this->layerid = this->net_id;
     this->layertype = MAXPOOL;
     this->ioid = this->input_id[0];
     this->ty = this->Dtype;
-}
 
-
-MAXPOOL_LAYER::~MAXPOOL_LAYER()
-{
-/*     delete this->size;
-    delete this->shape;
-    delete this->stride;
-    delete this->padding; */
-}
-
-void MAXPOOL_LAYER::make()
-{
-/*     this->size = pool_size;
-    this->stride = stride;
-    this->padding = padding; */   
     this->kernel_padding.push_back(0);
     this->kernel_padding.push_back(0);
 }

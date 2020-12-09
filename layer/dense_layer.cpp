@@ -5,36 +5,22 @@ DENSE_LAYER::DENSE_LAYER(IOPool* iopool): ILayer(iopool), paramW(-1, 0), paramB(
     
 }
 
-DENSE_LAYER::DENSE_LAYER(IOPool* iopool, int lid, int iid, int type, int wsize, int bsize) : ILayer(iopool), paramW(type, wsize), paramB(type, bsize)
-{
-    this->layerid = lid;
-    this->layertype = DENSE;
-    this->ioid = iid;
-    this->ty = (Tinfo)type;
-}
-
-void DENSE_LAYER::setupLayer()
-{
-    this->layerid = this->id;
-    this->layertype = DENSE;
-    this->ioid = this->input_id[0];
-    this->ty = this->Dtype;
-    // set param size
-    
-    this->n = this->units;
-    this->paramW.set_size(this->ty, this->shape[0] * this->units);
-    this->paramB.set_size(this->ty, this->units);
-}
-
-
 DENSE_LAYER::~DENSE_LAYER()
 {
 
 }
 
-void DENSE_LAYER::make()
+void DENSE_LAYER::setupLayer()
 {
     
+    this->layerid = this->net_id;
+    this->layertype = DENSE;
+    this->ioid = this->input_id[0];
+    this->ty = this->Dtype;
+    // set param size
+    
+    this->paramW.set_size(this->ty, this->shape[0] * this->units);
+    this->paramB.set_size(this->ty, this->units);
     this->n = this->units;
 
     switch (this->ty)

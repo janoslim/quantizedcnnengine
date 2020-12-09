@@ -17,11 +17,8 @@ private:
     PARAM paramB;
 
     int h,w,c;
-    /* std::vector<int>& shape; */
 
-    int n; // filter
-    /* std::vector<int>& size;
-    std::vector<int>& stride; */
+    int n;
     std::vector<int> kernel_padding;
 
 public:
@@ -34,13 +31,11 @@ public:
     int16_t* weightI16ptr;
     int16_t* biasI16ptr;
     CONVOLUTIONAL_LAYER(IOPool*);
-    CONVOLUTIONAL_LAYER(IOPool*, int lid, int iid, int Dtype, int wsize, int bsize);
     ~CONVOLUTIONAL_LAYER();
-    void make();
+    void setupLayer();
     void forward();
     void type();
     void quant();
-    void setupLayer();
 };
 
 #endif

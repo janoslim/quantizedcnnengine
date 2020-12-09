@@ -21,6 +21,7 @@ private:
 public:	
 	IO(int ID);
 	~IO();
+
 	int get_ID();
 	void get_access();
 	void ready();

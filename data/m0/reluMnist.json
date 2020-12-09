@@ -1,0 +1,123 @@
+{
+ "network": {
+  "type": "network",
+  "id": 6,
+  "input": [
+   -1
+  ],
+  "output": 6,
+  "shape": [
+   28,
+   28
+  ],
+  "subnet": [
+   {
+    "network": {
+     "type": "Reshape",
+     "id": 0,
+     "input": [
+      -1
+     ],
+     "output": 0,
+     "shape": [
+      28,
+      28
+     ],
+     "subnet": []
+    }
+   },
+   {
+    "network": {
+     "type": "Conv2D",
+     "id": 1,
+     "input": [
+      0
+     ],
+     "output": 1,
+     "shape": [
+      28,
+      28,
+      1
+     ],
+     "subnet": [],
+     "actType": "relu"
+    }
+   },
+   {
+    "network": {
+     "type": "Activation",
+     "id": 2,
+     "input": [
+      1
+     ],
+     "output": 2,
+     "shape": [
+      27,
+      27,
+      5
+     ],
+     "subnet": [],
+     "actType": "relu"
+    }
+   },
+   {
+    "network": {
+     "type": "MaxPooling2D",
+     "id": 3,
+     "input": [
+      2
+     ],
+     "output": 3,
+     "shape": [
+      27,
+      27,
+      5
+     ],
+     "subnet": []
+    }
+   },
+   {
+    "network": {
+     "type": "Flatten",
+     "id": 4,
+     "input": [
+      3
+     ],
+     "output": 4,
+     "shape": [
+      13,
+      13,
+      5
+     ],
+     "subnet": []
+    }
+   },
+   {
+    "network": {
+     "type": "Dense",
+     "id": 5,
+     "input": [
+      4
+     ],
+     "output": 5,
+     "shape": [
+      845
+     ],
+     "subnet": []
+    }
+   }
+  ],
+  "label": [
+   "0",
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8",
+   "9"
+  ]
+ }
+}

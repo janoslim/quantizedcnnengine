@@ -38,7 +38,7 @@ set(SOURCE ${MAIN_DIR}/main.cpp
         )
 
 # 변수 OUTPUT 설정
-set(OUTPUT ${ROOT}/engine.out)
+set(OUTPUT ${ROOT}/engine)
 
 SET ( CMAKE_C_COMPILER "g++")
 
