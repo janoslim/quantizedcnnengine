@@ -39,7 +39,7 @@ public:
     Model();
     ~Model();
     Network* makeObject(JsonParser&, IOPool&);
-    Network* geRootNetwork();
+    Network* getRootNetwork();
     void setWeightPath(std::string&);
     void enqueueWNNQ(Network*);
     void distributeWBParameters();

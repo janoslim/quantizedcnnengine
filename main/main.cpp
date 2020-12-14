@@ -34,13 +34,11 @@ int main(int argc, char **argv)
 	IOPool* iopool = new IOPool();
 	Model mainModel;
 
-	// prepare model
-	mainModel.makeObject(*jsonParser, *iopool);
-	std::cout << "makeObject set done." << std::endl;
-
 	// set weight path
 	mainModel.setWeightPath(weight);
-	std::cout << "Weight set done." << std::endl;
+	// prepare model
+	mainModel.makeObject(*jsonParser, *iopool);
+	std::cout << "\n\nmakeObject set done.\n\n" << std::endl;
 
 	// setup input file
 	FILE* input_file = fopen(input, "rb");
@@ -52,7 +50,9 @@ int main(int argc, char **argv)
 	// run model
 
 
-	mainModel.geRootNetwork()->forward();
+	mainModel.getRootNetwork()->forward();
+
+	iopool->printResult();
 
 /* 	// Layer 예시 코드
 	IOPool* iopool = new IOPool();

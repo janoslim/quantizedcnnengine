@@ -40,3 +40,13 @@ IO* IOPool::getIO(int id)
 {
     return io_map[id+1];
 }
+
+void IOPool::printResult()
+{
+    int index = 0;
+    while(bitmap[index])
+    {
+        io_map[index]->print_io();
+        index++;
+    }
+}

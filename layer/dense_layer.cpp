@@ -12,7 +12,6 @@ DENSE_LAYER::~DENSE_LAYER()
 
 void DENSE_LAYER::setupLayer()
 {
-    
     this->layerid = this->net_id;
     this->layertype = DENSE;
     this->ioid = this->input_id[0];
@@ -22,7 +21,10 @@ void DENSE_LAYER::setupLayer()
     this->paramW.set_size(this->ty, this->shape[0] * this->units);
     this->paramB.set_size(this->ty, this->units);
     this->n = this->units;
+}
 
+void DENSE_LAYER::uploadWB()
+{
     switch (this->ty)
     {
         case INT:
@@ -52,7 +54,7 @@ void DENSE_LAYER::setupLayer()
 
 void DENSE_LAYER::forward()
 {
-    std::cout << "dense forward" << std::endl;
+    std::cout << "dense forward\n" << std::endl;
 
     this->preset_forward();
 

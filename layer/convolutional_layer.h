@@ -17,9 +17,7 @@ private:
     PARAM paramB;
 
     int h,w,c;
-
     int n;
-    std::vector<int> kernel_padding;
 
 public:
     float* weightFptr;
@@ -32,6 +30,7 @@ public:
     int16_t* biasI16ptr;
     CONVOLUTIONAL_LAYER(IOPool*);
     ~CONVOLUTIONAL_LAYER();
+    void uploadWB();
     void setupLayer();
     void forward();
     void type();

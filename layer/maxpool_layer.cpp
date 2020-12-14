@@ -14,14 +14,11 @@ void MAXPOOL_LAYER::setupLayer()
     this->layertype = MAXPOOL;
     this->ioid = this->input_id[0];
     this->ty = this->Dtype;
-
-    this->kernel_padding.push_back(0);
-    this->kernel_padding.push_back(0);
 }
 
 void MAXPOOL_LAYER::forward()
 {
-    std::cout << "maxpool forward" << std::endl;
+    std::cout << "maxpool forward\n" << std::endl;
 
     this->preset_forward();
 
@@ -34,13 +31,13 @@ void MAXPOOL_LAYER::forward()
     this->c = input->get_c();
     this->ty = (Tinfo)input->get_ty();
     float* inp = input->get_value_fp();
-    int out_w = (w + kernel_padding[0] - pool_size[0]) / stride[0] + 1;
-    int out_h = (h + kernel_padding[1] - pool_size[1]) / stride[1] + 1;
+    int out_w = (w + padding[0] - pool_size[0]) / stride[0] + 1;
+    int out_h = (h + padding[1] - pool_size[1]) / stride[1] + 1;
     int out_c = c;
     int outputs = out_w*out_h*out_c;
     int i, j, k, m, n;
-    int w_offset = -kernel_padding[0] / 2;
-    int h_offset = -kernel_padding[1] / 2;
+    int w_offset = -padding[0] / 2;
+    int h_offset = -padding[1] / 2;
     float* outp = new float[outputs];
     int* indexes = new int[outputs];
     

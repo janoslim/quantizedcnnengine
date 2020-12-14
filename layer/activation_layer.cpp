@@ -20,7 +20,7 @@ void ACTIVATION_LAYER::setupLayer()
 
 void ACTIVATION_LAYER::forward()
 {
-    std::cout << "activation forward" << std::endl;
+    std::cout << "activation forward\n" << std::endl;
 
     this->preset_forward();
 

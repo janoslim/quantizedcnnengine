@@ -40,7 +40,17 @@
       1
      ],
      "subnet": [],
-     "actType": "relu"
+     "actType": "relu",
+     "filters": 5,
+     "size": [
+      2,
+      2
+     ],
+     "stride": [
+      1,
+      1
+     ],
+     "padding": "valid"
     }
    },
    {
@@ -73,7 +83,16 @@
       27,
       5
      ],
-     "subnet": []
+     "subnet": [],
+     "pool_size": [
+      2,
+      2
+     ],
+     "stride": [
+      2,
+      2
+     ],
+     "padding": "valid"
     }
    },
    {
@@ -103,7 +122,8 @@
      "shape": [
       845
      ],
-     "subnet": []
+     "subnet": [],
+     "units": 10
     }
    }
   ],

@@ -15,8 +15,6 @@ private:
     int h,w,c;
     int* shape;
 
-    std::vector<int> kernel_padding;
-
 public:
     MAXPOOL_LAYER(IOPool*);
     ~MAXPOOL_LAYER();

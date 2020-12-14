@@ -83,7 +83,7 @@ void IO::print_io()
 {
     fprintf(stderr, "IO 정보 : id = %d h = %d w = %d c = %d\n", ID, h, w, c);
     float* io = (float *)this->io;
-	for(int i=0; i<h*w; i++)
+	for(int i=0; i<w*h; i++)
 	{
 		fprintf(stderr, "%f ", io[i]);
 	}

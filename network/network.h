@@ -12,7 +12,7 @@ enum class Ninfo
 	RESHAPE,
 	CONV2D,
 	MAXPOOL2D,
-	FLATTEN,
+	ACTIV,
 	DENSE
 };
 

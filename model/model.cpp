@@ -49,21 +49,16 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
 
             JsonString* jsonStr = dynamic_cast<JsonString*>(jsonValue);
             std::string typeStr = jsonStr->getValue();
+            std::cout << "in type > " << typeStr << std::endl;
             
             if(typeStr.compare("network") == 0) 
             {
                 networkObj = new Network(&iopool);
                 networkObj->setNetworkType(Ninfo::NETWORK);
             }
-            /* else if(typeStr.compare("reshape") == 0) 
-            {
-                networkObj = new Network(&iopool);
-                networkObj->setNetworkType(Ninfo::RESHAPE);
-            } */
             else if(typeStr.compare("Conv2D") == 0) 
             {
-                CONVOLUTIONAL_LAYER* conv2dObj = new CONVOLUTIONAL_LAYER(&iopool);
-                networkObj = dynamic_cast<Network*>(conv2dObj);
+                networkObj = new CONVOLUTIONAL_LAYER(&iopool);
                 networkObj->setNetworkType(Ninfo::CONV2D);
             }
             else if(typeStr.compare("MaxPooling2D") == 0) 
@@ -71,19 +66,19 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
                 networkObj = new MAXPOOL_LAYER(&iopool);
                 networkObj->setNetworkType(Ninfo::MAXPOOL2D);
             }
-            /* else if(typeStr.compare("flatten") == 0) 
+            else if(typeStr.compare("Activation") == 0) 
             {
-                networkObj = new Network(&iopool);
-                networkObj->setNetworkType(Ninfo::FLATTEN);
-            } */
-            else if(typeStr.compare("dense") == 0) 
+                networkObj = new ACTIVATION_LAYER(&iopool);
+                networkObj->setNetworkType(Ninfo::ACTIV);
+            }
+            else if(typeStr.compare("Dense") == 0) 
             {
                 networkObj = new DENSE_LAYER(&iopool);
                 networkObj->setNetworkType(Ninfo::DENSE);
             }
             else
             {
-                std::cout << "ERROR: Line 60 model.cpp" << std::endl;
+                std::cout << "ERROR: no matching type with Ninfo" << std::endl;
                 exit(0);
             }
         }
@@ -95,6 +90,7 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
         jsonKey = kvPair.first;
         jsonValue = kvPair.second;
         std::string key = jsonKey->getValue();
+        std::cout << "object > " << key << std::endl;
 
         if(key.compare("subnet") == 0)
         {
@@ -119,6 +115,16 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
         {
             JsonNumber* jsonId = dynamic_cast<JsonNumber*>(jsonValue);
             networkObj->setId(jsonId->getValue());
+        }
+        else if(key.compare("input") == 0)
+        {
+            std::vector<JsonValue*>* mem_vec = dynamic_cast<JsonArray*>(jsonValue)->getValue();
+            std::vector<int> inputVec;
+            for(JsonValue* inputNum : *mem_vec)
+            {
+                inputVec.push_back(((JsonNumber*)inputNum)->getValue());
+            }
+            networkObj->setInputId(inputVec);
         }
         else if(key.compare("output") == 0)
         {
@@ -170,16 +176,6 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
             }
             networkObj->setSize(sizeVec);
         }
-        else if(key.compare("input") == 0)
-        {
-            std::vector<JsonValue*>* mem_vec = dynamic_cast<JsonArray*>(jsonValue)->getValue();
-            std::vector<int> inputVec;
-            for(JsonValue* inputNum : *mem_vec)
-            {
-                inputVec.push_back(((JsonNumber*)inputNum)->getValue());
-            }
-            networkObj->setInputId(inputVec);
-        }
         else if(key.compare("stride") == 0)
         {
             std::vector<JsonValue*>* mem_vec = dynamic_cast<JsonArray*>(jsonValue)->getValue();
@@ -218,6 +214,10 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
                 exit(0);
             }
         }
+        else if(key.compare("label") == 0)
+        {
+            //store label name info
+        }
         else if(key.compare("type") == 0)
         {}
         else
@@ -238,6 +238,7 @@ Network* Model::makeNetwork(JsonObject* networkObject, IOPool& iopool)
 
     return networkObj;
 }
+
 Model::Model()
 {
 }
@@ -247,11 +248,10 @@ Model::~Model()
     delete this->rootNetwork;
 }
 
-Network* Model::geRootNetwork()
+Network* Model::getRootNetwork()
 {
     return this->rootNetwork;
 }
-
 
 void Model::enqueueWNNQ(Network* network)
 {
@@ -282,7 +282,7 @@ void Model::distributeWBParameters()
                 convObj->biasFptr = new float[biasC];
                 wbParamFile.read(reinterpret_cast<char*>(convObj->weightFptr), weightC*sizeof(float));
                 wbParamFile.read(reinterpret_cast<char*>(convObj->biasFptr), biasC*sizeof(float));
-                convObj->setupLayer();
+                convObj->uploadWB();
             }
             break;
         case Ninfo::DENSE:
@@ -294,13 +294,7 @@ void Model::distributeWBParameters()
                 denseObj->biasFptr = new float[biasShape];
                 wbParamFile.read(reinterpret_cast<char*>(denseObj->weightFptr), weightShape*sizeof(float));
                 wbParamFile.read(reinterpret_cast<char*>(denseObj->biasFptr), biasShape*sizeof(float));
-                denseObj->setupLayer();
-            }
-            break;
-        case Ninfo::MAXPOOL2D:
-            {
-                MAXPOOL_LAYER* maxpoolObj = dynamic_cast<MAXPOOL_LAYER*>(networkObj);
-                maxpoolObj->setupLayer();
+                denseObj->uploadWB();
             }
             break;
         default:

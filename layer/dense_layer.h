@@ -29,6 +29,7 @@ public:
     int16_t* biasI16ptr;
     DENSE_LAYER(IOPool*);
     ~DENSE_LAYER();
+    void uploadWB();
     void setupLayer();
     void forward();
     void type();

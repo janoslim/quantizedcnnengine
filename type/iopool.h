@@ -16,6 +16,7 @@ public:
     void finish_input(int id);
     void add_IO(IO* io_obj);
     void get_access(std::vector<int>& inputVec);
+    void printResult();
     IO* getIO(int);
 };
 
